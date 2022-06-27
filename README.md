@@ -1,26 +1,24 @@
-"# Policy Administration System (PAS) " 
+# Policy Administration System (PAS)
 
 ## How to contribute <a name="usage"></a>
 
 **Step 1: Fork this repository**
 * A fork will create a copy of this repository in your GitHub account.
-<img src="imgs\Screenshot 2021-09-30 192153.png" alt="fork howto" style="height: 100px; width: 400px;">
 
 **Step 2: Clone the repository**
 * Cloning will create the copy of the forked repository in your local machine.
 * Copy the URL from here.
-<img src="imgs\Screenshot 2021-09-30 193003.png" alt="clone" style="height: 300px; weight: 250px;">
 
 * Open Git Bash or terminal and run the following command:
 
 ```
-git clone https://github.com/<Your GitHub Username>/Flutter-UI.git
+git clone https://github.com/Sanjivekumaran/Pod-2.git
 ```
 
-* After cloning the repo, run this command to add the [main repository](https://github.com/Project-Easter/Flutter-UI.git) as `upstream` to sync with it. Run this command to add `upstream`:
+* After cloning the repo, run this command to add the [main repository](https://github.com/Sanjivekumaran/Pod-2.git) as `upstream` to sync with it. Run this command to add `upstream`:
 
 ```
-git remote add upstream https://github.com/Project-Easter/Flutter-UI.git
+git remote add upstream https://github.com/Sanjivekumaran/Pod-2.git
 ```
 
 **Step 3: Create a branch:**
@@ -28,13 +26,11 @@ git remote add upstream https://github.com/Project-Easter/Flutter-UI.git
 
 Navigate to the folder where the repository is cloned, which will be named *Pod-2*.
 
-Now, in the terminal, create a branch in Git using the following command:
+Now, in the terminal, create(or use dev) a branch in Git using the following command:
 
 ```
-git checkout -b <pod-2/your-first-name>
+git checkout -b <branch-name>
 ```
-
-Use the same name in the branch created in GitHub.
 
 **Step 4: Make necessary changes and commit**
 1. Open the project in INTELLI-J IDEA or ECLIPSE and make sure that you are on **the branch created by you**, not on *main*.
@@ -62,7 +58,7 @@ git commit -m'<Relevant commit message>'
 Push your changes using the command:
 
 ```
-git push origin <hacktober/your-first-name>
+git push
 ```
 
 **Step 6: Make a Pull request**
