@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="quotes")
-public class QuotesModel {
+@Entity(name = "quotes")
+public class QuotesMaster {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -23,5 +23,5 @@ public class QuotesModel {
 	private int PropertyValue;
 	private String PropertyType;
 	private String Quote;
-	
+
 }
