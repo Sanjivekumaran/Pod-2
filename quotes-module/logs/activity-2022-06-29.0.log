@@ -477,3 +477,33 @@ Error starting ApplicationContext. To display the conditions report re-run your 
 2022-06-29_14-15-07 [Thread-28] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2022-06-29_14-15-07 [Thread-28] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown initiated...
 2022-06-29_14-15-07 [Thread-28] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown completed.
+2022-06-29_15-15-42 [restartedMain] INFO  c.c.q.QuotesModuleApplication - Starting QuotesModuleApplication using Java 17.0.2 on DESKTOP-9H42O94 with PID 18124 (D:\JAVA CDE FSE\STAGE 4\MAIN PROJECT\Pod-2\quotes-module\target\classes started by kshitij in D:\JAVA CDE FSE\STAGE 4\MAIN PROJECT\Pod-2\quotes-module)
+2022-06-29_15-15-42 [restartedMain] INFO  c.c.q.QuotesModuleApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 1 JPA repository interfaces.
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9091 (http)
+2022-06-29_15-15-42 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-06-29_15-15-42 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-06-29_15-15-42 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/quote] - Initializing Spring embedded WebApplicationContext
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 365 ms
+2022-06-29_15-15-42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-32 - Starting...
+2022-06-29_15-15-42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-32 - Start completed.
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/db'. Database available at 'jdbc:h2:mem:quote_db'
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@14add3bb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@54dc7533, org.springframework.security.web.context.SecurityContextPersistenceFilter@22d89486, org.springframework.security.web.header.HeaderWriterFilter@60e94012, org.springframework.security.web.csrf.CsrfFilter@5d769aff, org.springframework.security.web.authentication.logout.LogoutFilter@14496b97, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2c7fa1c7, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@147b6272, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5fc97f6, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@5d5cdd5b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@77122b97, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5dd10cb7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ef12417, org.springframework.security.web.session.SessionManagementFilter@4b905e69, org.springframework.security.web.access.ExceptionTranslationFilter@33bcc47e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2e9dd588]
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9091 (http) with context path '/quote'
+2022-06-29_15-15-42 [restartedMain] INFO  c.c.q.QuotesModuleApplication - Started QuotesModuleApplication in 0.701 seconds (JVM running for 4127.423)
+2022-06-29_15-15-42 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2022-06-29_15-15-42 [http-nio-9091-exec-2] INFO  o.a.c.c.C.[.[localhost].[/quote] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-29_15-15-42 [http-nio-9091-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-06-29_15-15-42 [http-nio-9091-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2022-06-29_15-15-42 [http-nio-9091-exec-2] INFO  c.c.q.controller.QuotesController - Start
+2022-06-29_15-15-42 [http-nio-9091-exec-2] INFO  c.c.q.service.QuotesMasterService - start service
+2022-06-29_15-15-42 [http-nio-9091-exec-2] INFO  c.c.q.service.QuotesMasterService - end service
+2022-06-29_15-15-42 [http-nio-9091-exec-2] INFO  c.c.q.controller.QuotesController - QuotesMaster: null
+2022-06-29_15-15-42 [http-nio-9091-exec-2] INFO  c.c.q.controller.QuotesController - End
+2022-06-29_15-15-42 [http-nio-9091-exec-3] INFO  c.c.q.controller.QuotesController - Start
+2022-06-29_15-15-42 [http-nio-9091-exec-3] INFO  c.c.q.service.QuotesMasterService - start service
+2022-06-29_15-15-42 [http-nio-9091-exec-3] INFO  c.c.q.service.QuotesMasterService - end service
+2022-06-29_15-15-42 [http-nio-9091-exec-3] INFO  c.c.q.controller.QuotesController - QuotesMaster: com.cts.quotesmodule.model.QuotesMaster@2584bd4e
+2022-06-29_15-15-42 [http-nio-9091-exec-3] INFO  c.c.q.controller.QuotesController - End
