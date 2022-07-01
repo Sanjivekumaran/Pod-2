@@ -44,7 +44,7 @@ public class PolicyService {
     }
 
     public PolicyDetailsResponse viewPolicy(long consumerId, String policyId) throws PolicyNotFoundException, ConsumerPolicyNotFoundException {
-        PolicyMaster policyMaster = policyMasterRepository.findByPid(policyId);
+        PolicyMaster policyMaster = policyMasterRepository.findByPolicyId(policyId);
         ConsumerPolicy consumerPolicy = consumerPolicyRepository.findByConsumerId(consumerId);
         PolicyDetailsResponse policyDetailsResponse = new PolicyDetailsResponse(consumerId, policyMaster.getPolicyId(), policyMaster.getPropertyType(), policyMaster.getConsumerType(), policyMaster.getAssuredSum(), policyMaster.getTenure(), policyMaster.getBusinessValue(), policyMaster.getPropertyValue(), policyMaster.getBaseLocation(), policyMaster.getType(), consumerPolicy.getBusinessId(), consumerPolicy.getPaymentDetails(), consumerPolicy.getAcceptanceStatus(), consumerPolicy.getPolicyStatus(), consumerPolicy.getEffectiveDate(), consumerPolicy.getCoveredSum(), consumerPolicy.getDuration(), consumerPolicy.getAcceptedQuote());
         return policyDetailsResponse;
@@ -69,7 +69,7 @@ public class PolicyService {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         ConsumerPolicy consumerPolicy = consumerPolicyRepository.findByConsumerIdAndBusinessId(issuePolicyRequest.getConsumerId(), issuePolicyRequest.getBusinessId());
-        PolicyMaster policyMaster = policyMasterRepository.findByPid(issuePolicyRequest.getPolicyId());
+        PolicyMaster policyMaster = policyMasterRepository.findByPolicyId(issuePolicyRequest.getPolicyId());
         consumerPolicy.setPolicyId(issuePolicyRequest.getPolicyId());
         consumerPolicy.setPaymentDetails(issuePolicyRequest.getPaymentDetails());
         consumerPolicy.setAcceptanceStatus(issuePolicyRequest.getAcceptanceStatus());

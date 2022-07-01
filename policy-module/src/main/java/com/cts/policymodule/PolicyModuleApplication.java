@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableFeignClients
 @ComponentScan(basePackages = {"com.cts"})
 @EnableJpaRepositories
+//@EnableHystrix
+
 public class PolicyModuleApplication {
 
     public static void main(String[] args) {

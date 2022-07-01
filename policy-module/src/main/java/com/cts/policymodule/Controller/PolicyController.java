@@ -11,7 +11,7 @@ import com.cts.policymodule.Payload.Response.QuoteDetailsResponse;
 import com.cts.policymodule.Repository.ConsumerPolicyRepository;
 import com.cts.policymodule.Repository.PolicyMasterRepository;
 import com.cts.policymodule.Service.PolicyService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,19 +33,19 @@ public class PolicyController {
     private ConsumerPolicyRepository consumerPolicyRepository;
 
     @PostMapping("/createPolicy")
-    @HystrixCommand(fallbackMethod = "sendPolicyErrorResponse")
+//    @HystrixCommand(fallbackMethod = "sendPolicyErrorResponse")
     public MessageResponse createPolicy(@Valid @RequestBody CreatePolicyRequest createPolicyRequest) throws ConsumerBusinessNotFoundException {
         MessageResponse messageResponse = policyService.createPolicy(createPolicyRequest);
         return messageResponse;
     }
 
     @PostMapping("/issuePolicy")
-    @HystrixCommand(fallbackMethod = "sendPolicyErrorResponse")
+//    @HystrixCommand(fallbackMethod = "sendPolicyErrorResponse")
     public MessageResponse issuePolicy(@Valid @RequestBody IssuePolicyRequest issuePolicyRequest) throws ConsumerPolicyNotFoundException, PolicyNotFoundException {
         if (!consumerPolicyRepository.existsByConsumerId(issuePolicyRequest.getConsumerId())) {
             return new MessageResponse("Sorry!!, No Consumer Found!!");
         }
-        if (!policyMasterRepository.existsByPid(issuePolicyRequest.getPolicyId())) {
+        if (!policyMasterRepository.existsByPolicyId(issuePolicyRequest.getPolicyId())) {
             return new MessageResponse("Sorry!!, No Policy Found!!");
         }
         if (!(issuePolicyRequest.getPaymentDetails().equals("Success"))) {
@@ -59,9 +59,9 @@ public class PolicyController {
     }
 
     @GetMapping("/viewPolicy")
-    @HystrixCommand(fallbackMethod = "sendPolicyErrorResponse")
+//    @HystrixCommand(fallbackMethod = "sendPolicyErrorResponse")
     public ResponseEntity<?> viewPolicy(@Valid @RequestParam Long consumerId, @RequestParam String policyId) throws ConsumerPolicyNotFoundException, PolicyNotFoundException {
-        if (!policyMasterRepository.existsByPid(policyId)) {
+        if (!policyMasterRepository.existsByPolicyId(policyId)) {
             return ResponseEntity.badRequest().body(new MessageResponse("Sorry!!, No Policy Found!!"));
         }
         if (!consumerPolicyRepository.existsByConsumerId(consumerId)) {
@@ -72,7 +72,7 @@ public class PolicyController {
     }
 
     @GetMapping("/getQuotes")
-    @HystrixCommand(fallbackMethod = "sendPolicyErrorResponse")
+//    @HystrixCommand(fallbackMethod = "sendPolicyErrorResponse")
     public ResponseEntity<QuoteDetailsResponse> getQuotes(@Valid @RequestParam Long businessValue, @RequestParam Long propertyValue, @RequestParam String propertyType) {
         QuoteDetailsResponse quoteDetailsResponse = policyService.getQuotes(businessValue, propertyValue, propertyType);
         return ResponseEntity.ok(quoteDetailsResponse);

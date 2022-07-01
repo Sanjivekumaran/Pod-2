@@ -8,7 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface PolicyMasterRepository extends JpaRepository<PolicyMaster, Long> {
-    PolicyMaster findByPid(String policyId);
+	
+    PolicyMaster findByPolicyId(String policyId);
 
-    boolean existsByPid(String policyId);
+    boolean existsByPolicyId(String policyId);
 }
