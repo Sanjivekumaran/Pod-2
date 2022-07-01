@@ -58,4 +58,7 @@ public class ConsumerBusinessResponse {
 	
 	@NotNull
 	private Long businessTurnover;
+	
+	@NotNull
+	private long businessId;
 }

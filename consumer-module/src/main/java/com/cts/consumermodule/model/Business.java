@@ -32,7 +32,7 @@ public class Business {
 	private Long consumerId;
 	
 	@NotBlank
-	@Column(name="BusinessName")
+	@Column(name="BusinessName",unique=true)
 	private String businessName;
 	
 	@NotBlank

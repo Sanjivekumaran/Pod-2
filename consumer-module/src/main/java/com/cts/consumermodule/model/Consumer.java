@@ -44,7 +44,7 @@ public class Consumer {
 	private String email;
 	
 	@NotBlank
-	@Column(name="PAN")
+	@Column(name="PAN",unique=true)
 	private String pan;
 	
 	@NotBlank

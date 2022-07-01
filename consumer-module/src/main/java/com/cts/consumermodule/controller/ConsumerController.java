@@ -16,7 +16,10 @@ import com.cts.consumermodule.model.Property;
 import com.cts.consumermodule.repository.BusinessRepository;
 import com.cts.consumermodule.repository.ConsumerRepository;
 import com.cts.consumermodule.repository.PropertyRepository;
+import com.cts.consumermodule.request.BusinessInputRequest;
+import com.cts.consumermodule.request.BusinessUpdateRequest;
 import com.cts.consumermodule.request.ConsumerBusinessRequest;
+import com.cts.consumermodule.request.UpdateRequest;
 import com.cts.consumermodule.response.ConsumerBusinessResponse;
 import com.cts.consumermodule.service.ConsumerService;
 
@@ -36,7 +39,13 @@ public class ConsumerController {
 	private PropertyRepository propertyRepository;
 	
 	@PostMapping("/createConsumerBusiness")
-	public String createConsumerBusiness(@RequestBody ConsumerBusinessRequest inputRequest) {
+	public ResponseEntity<?> createConsumerBusiness(@RequestBody ConsumerBusinessRequest inputRequest) {
+		if(businessRepository.existsByBusinessName(inputRequest.getBusinessName())) {
+			return ResponseEntity.badRequest().body("Business already exists");
+		}
+		if(consumerRepository.existsByPan(inputRequest.getPan())) {
+			return ResponseEntity.badRequest().body("Consumer already exists");
+		}
 		return consumerService.createConsumerBusiness(inputRequest);
 	}
 	
@@ -67,6 +76,30 @@ public class ConsumerController {
 		}
 		Optional<Property> property = propertyRepository.findById(propertyId);
 		return ResponseEntity.ok(property);
-		
+	}
+	
+	@PostMapping("/updateConsumerBusiness")
+	public ResponseEntity<?> updateConsumerBusiness(@Valid @RequestBody UpdateRequest updateRequest) {
+		if(businessRepository.existsByBusinessName(updateRequest.getBusinessName()) || consumerRepository.existsByPan(updateRequest.getPan())) {
+			
+			return consumerService.updateConsumerBusiness(updateRequest);
+		}
+		return ResponseEntity.badRequest().body("Business/Consumer doesnt exists");
+	}
+	
+	@PostMapping("/createBusinessProperty")
+	public ResponseEntity<?> createBusinessProperty(@Valid @RequestBody BusinessInputRequest inputRequest) {
+		if(propertyRepository.existsByBusinessId(inputRequest.getBusinessId())) {
+			return ResponseEntity.badRequest().body("Business already exists");
+		}
+		return consumerService.createBusinessProperty(inputRequest);
+	}
+	
+	@PostMapping("/updateBusinessProperty")
+	public ResponseEntity<?> updateBusinessProperty(@Valid @RequestBody BusinessUpdateRequest updateRequest) {
+		if(propertyRepository.existsByConsumerId(updateRequest.getConsumerId())) {
+			return consumerService.updateBusinessProperty(updateRequest);
+		}
+		return ResponseEntity.badRequest().body("Business/Property doesnt exists");
 	}
 }
