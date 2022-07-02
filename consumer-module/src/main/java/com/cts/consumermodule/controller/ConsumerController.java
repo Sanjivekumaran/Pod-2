@@ -43,7 +43,7 @@ public class ConsumerController {
 	@PostMapping("/createConsumerBusiness")
 	public ResponseEntity<?> createConsumerBusiness(@RequestHeader String Authorization,@RequestBody ConsumerBusinessRequest inputRequest) {
 		if(consumerService.isSessionValid(Authorization)) {
-			if(businessRepository.existsByBusinessName(inputRequest.getBusinessName())) {
+		  if(businessRepository.existsByBusinessName(inputRequest.getBusinessName())) {
 				return ResponseEntity.badRequest().body("Business already exists");
 			}
 			if(consumerRepository.existsByPan(inputRequest.getPan())) {
