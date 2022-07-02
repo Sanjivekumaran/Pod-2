@@ -52,7 +52,7 @@ public class AuthController {
 			if (jwtutil.validateToken(token)) {
 				res.setId(jwtutil.extractUsername(token));
 				res.setValid(true);
-				res.setName("admin");
+				res.setName("Agent");
 			} else {
 				res.setValid(false);
 				return new ResponseEntity<>(res, HttpStatus.FORBIDDEN);

@@ -52,6 +52,6 @@ public class InputRequest {
 	private Long businessAge;
 	
 	@NotNull
-	private Long totalEmployees;
+	private String totalEmployees;
 
 }

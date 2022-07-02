@@ -5,15 +5,14 @@ import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class UpdateRequest {
-	
-	@NotNull
-	private Long consumerId;
+@NoArgsConstructor
+public class ConsumerBusinessRequest {
 	
 	@NotBlank
 	private String firstName;
@@ -54,8 +53,7 @@ public class UpdateRequest {
 	@NotNull
 	private Long businessAge;
 	
-	@NotNull
+	@NotBlank
 	private String totalEmployees;
 
 }
-

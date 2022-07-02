@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,28 +31,37 @@ public class QuotesController {
 	 */
 
 	@GetMapping("/getQuotesForPolicy")
-	public String getQuotes(@RequestParam Long businessValue, @RequestParam Long propertyValue,
+	public String getQuotes(@RequestHeader String Authorization,@RequestParam Long businessValue, @RequestParam Long propertyValue,
 			@RequestParam String propertyType) {
-		String quote = "No Quotes, Contact Insurance Provider";
-		log.info("Start");
-
-		try {
-			QuotesMaster quoteMaster = quotesMasterService.getQuoteMaster(businessValue, propertyValue, propertyType);
-			log.info("QuotesMaster: {}", quoteMaster);
-			quote = quoteMaster.getQuote();
-		} catch (NullPointerException e) {
+		if(quotesMasterService.isSessionValid(Authorization)) {
+			String quote = "No Quotes, Contact Insurance Provider";
+			log.info("Start");
+	
+			try {
+				QuotesMaster quoteMaster = quotesMasterService.getQuoteMaster(businessValue, propertyValue, propertyType);
+				log.info("QuotesMaster: {}", quoteMaster);
+				quote = quoteMaster.getQuote();
+			} catch (NullPointerException e) {
+				log.info("End");
+				return quote;
+			}
 			log.info("End");
 			return quote;
 		}
-		log.info("End");
-		return quote;
+		else {
+			return "Invalid Authorization";
+		}
 	}
 
 	@GetMapping("/getAllQuotes")
-	public List<QuotesMaster> getAllQuotes() {
+	public List<QuotesMaster> getAllQuotes(@RequestHeader String Authorization) {
+		
 		log.info("Started getAllQuotes");
-		log.info("End getAllQuotes");
-		return quotesMasterService.getAllQuotes();
+		if(quotesMasterService.isSessionValid(Authorization)) {
+			log.info("End getAllQuotes");
+			return quotesMasterService.getAllQuotes();
+		}
+		return null;
 	}
 
 	@GetMapping("/health-check")

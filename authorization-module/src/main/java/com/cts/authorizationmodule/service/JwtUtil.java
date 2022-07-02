@@ -70,7 +70,7 @@ public class JwtUtil {
 	public Boolean validateToken(String token) {
 
 		try {
-			Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+			System.out.println(Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody());
 			return true;
 		} catch (Exception e) {
 			return false;

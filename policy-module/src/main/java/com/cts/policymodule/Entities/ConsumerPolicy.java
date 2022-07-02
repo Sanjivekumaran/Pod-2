@@ -39,7 +39,7 @@ public class ConsumerPolicy {
     private Long businessId;
 
     @NotNull
-    @Column(name = "Consumer_ID")
+    @Column(name = "Consumer_ID",unique=true)
     private Long consumerId;
 
     @Column(name = "Property_Type")

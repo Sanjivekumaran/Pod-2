@@ -44,7 +44,7 @@ public class Consumer {
 	private String email;
 	
 	@NotBlank
-	@Column(name="PAN")
+	@Column(name="PAN",unique=true)
 	private String pan;
 	
 	@NotBlank
@@ -65,7 +65,7 @@ public class Consumer {
 
 	public Consumer(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String dob, @NotBlank String email,
 			@NotBlank String pan, @NotBlank String businessName, @NotBlank String validity, @NotBlank String agentName,
-			@NotNull Long agentId) {
+			@NotBlank Long agentId) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

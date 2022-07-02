@@ -1,5 +1,8 @@
 package com.cts.consumermodule.service;
 
+
+
+
 import java.util.Optional;
 
 import javax.validation.constraints.NotNull;
@@ -7,8 +10,11 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.cts.consumermodule.exception.ConsumerBusinessNotFoundException;
 import com.cts.consumermodule.model.Business;
 import com.cts.consumermodule.model.Consumer;
 import com.cts.consumermodule.model.Property;
@@ -17,8 +23,12 @@ import com.cts.consumermodule.repository.ConsumerRepository;
 import com.cts.consumermodule.repository.PropertyRepository;
 import com.cts.consumermodule.request.BusinessInputRequest;
 import com.cts.consumermodule.request.BusinessUpdateRequest;
-import com.cts.consumermodule.request.InputRequest;
+import com.cts.consumermodule.request.ConsumerBusinessRequest;
 import com.cts.consumermodule.request.UpdateRequest;
+import com.cts.consumermodule.response.ConsumerBusinessResponse;
+import com.cts.consumermodule.client.AuthClient;
+import com.cts.consumermodule.model.AuthResponse;
+
 
 @Service
 public class ConsumerService {
@@ -34,10 +44,20 @@ public class ConsumerService {
 	@Autowired
 	private PropertyRepository propertyRepository;
 	
+	@Autowired
+	private AuthClient authClient;
 	
-	/*Creating consumer by accepting the inputRequest as RequestBody*/
-	public String createConsumerBusiness(InputRequest inputRequest) {
-		
+	public boolean isSessionValid(String token) {
+		try {
+			@SuppressWarnings("unused")
+			AuthResponse authResponse = authClient.getValidity(token);
+		} catch (Exception e) {
+			return false;
+		} 
+		return true;	
+	}
+	
+	public ResponseEntity<?> createConsumerBusiness(ConsumerBusinessRequest inputRequest) {
 		Consumer consumer = new Consumer(inputRequest.getFirstName(),inputRequest.getLastName(),
 				inputRequest.getDob(),inputRequest.getEmail(),inputRequest.getPan(),inputRequest.getBusinessName(),
 				inputRequest.getValidity(),inputRequest.getAgentName(),inputRequest.getAgentId());
@@ -52,12 +72,31 @@ public class ConsumerService {
 		
 		log.debug("Business Obj {}", businessSavedObj);
 		
-		return "Create Success";
+		return  ResponseEntity.ok("Created");
+		
 		
 	}
 	
-	/*Updating consumer by accepting the updateRequest as RequestBody*/
-	public String updateConsumerBusiness(UpdateRequest updateRequest) {
+	public ConsumerBusinessResponse viewConsumerBusiness(Long consumerid) throws ConsumerBusinessNotFoundException {
+		log.info("Start viewConsumerBusinessService");
+		Optional<Consumer> consumer = Optional.ofNullable(consumerRepository.findById(consumerid).orElseThrow(() -> new ConsumerBusinessNotFoundException()));
+		log.debug("Consumer List : {}", consumer);
+		Consumer consumers = consumer.get();
+		log.debug("Consumer : {}", consumers);
+		Business business = businessRepository.findByConsumerId(consumerid);
+		log.debug("Business : {}", business);
+		ConsumerBusinessResponse consumerBusinessDetails = new ConsumerBusinessResponse(consumers.getFirstName(),consumers.getLastName(),
+				consumers.getDob(),consumers.getEmail(),consumers.getPan(),consumers.getBusinessName(),
+				consumers.getValidity(),consumers.getAgentName(),consumers.getAgentId(),business.getConsumerId(),
+				business.getBusinessType(),business.getBusinessAge(),business.getTotalEmployees(),business.getCapitalInvested(),
+				business.getBusinessTurnover(),business.getId());
+		log.debug("ConsumerBusinessDetails : {}", consumerBusinessDetails);
+		log.info("End viewConsumerBusinessService");
+		return consumerBusinessDetails;
+
+	}
+	
+public ResponseEntity<?> updateConsumerBusiness(UpdateRequest updateRequest) {
 		
 		Optional<Consumer> consumer = consumerRepository.findById(updateRequest.getConsumerId());
 		log.debug("{}",consumer.isPresent());
@@ -89,11 +128,11 @@ public class ConsumerService {
 		
 		Business businessUpdateObj = businessRepository.save(business_info);
 		
-		return "Update Success";
+		return ResponseEntity.ok("success");
 	}
 	
 	/*Creating property by accepting the inputRequest as RequestBody*/
-	public String createBusinessProperty(BusinessInputRequest inputRequest) {
+	public ResponseEntity<?> createBusinessProperty(BusinessInputRequest inputRequest) {
 		
 		Long propertyValue = calculatePropertyValue(inputRequest.getCostOftheAsset(),inputRequest.getSalvageValue(),
 				inputRequest.getUsefulLifeofAsset());
@@ -106,12 +145,12 @@ public class ConsumerService {
 		
 		log.debug("Property Saved {}", propertySavedObj);
 	
-		return "Property Created";
+		return ResponseEntity.ok("success");
 		
 	}
 
 	/*Updating property by accepting the updateRequest as RequestBody*/
-	public String updateBusinessProperty(BusinessUpdateRequest updateRequest) {
+	public ResponseEntity<?> updateBusinessProperty(BusinessUpdateRequest updateRequest) {
 		
 		Long propertyValue = calculatePropertyValue(updateRequest.getCostOftheAsset(),updateRequest.getSalvageValue(),
 				updateRequest.getUsefulLifeofAsset());
@@ -131,7 +170,7 @@ public class ConsumerService {
 		
 		log.debug("Property Updated Obj {} ", propertySavedObj);
 		
-		return "Update Property Success";
+		return ResponseEntity.ok("Update Property Success");
 		
 	}
 
@@ -158,5 +197,9 @@ public class ConsumerService {
 		return (long) Math.abs(Math.round(propertyvalue));
 
 	}
+	
+	
+	
+	
 
 }

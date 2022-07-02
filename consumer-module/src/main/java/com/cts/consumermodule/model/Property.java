@@ -28,7 +28,7 @@ public class Property {
 	private Long id;
 	
 	@NotNull
-	@Column(name="BusinessId")
+	@Column(name="BusinessId",unique=true)
 	private Long businessId;
 	
 	@NotNull
