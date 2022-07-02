@@ -26,6 +26,8 @@ import com.cts.consumermodule.request.BusinessUpdateRequest;
 import com.cts.consumermodule.request.ConsumerBusinessRequest;
 import com.cts.consumermodule.request.UpdateRequest;
 import com.cts.consumermodule.response.ConsumerBusinessResponse;
+import com.cts.consumermodule.client.AuthClient;
+import com.cts.consumermodule.model.AuthResponse;
 
 
 @Service
@@ -41,6 +43,19 @@ public class ConsumerService {
 	
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	@Autowired
+	private AuthClient authClient;
+	
+	public boolean isSessionValid(String token) {
+		try {
+			@SuppressWarnings("unused")
+			AuthResponse authResponse = authClient.getValidity(token);
+		} catch (Exception e) {
+			return false;
+		} 
+		return true;	
+	}
 	
 	public ResponseEntity<?> createConsumerBusiness(ConsumerBusinessRequest inputRequest) {
 		Consumer consumer = new Consumer(inputRequest.getFirstName(),inputRequest.getLastName(),

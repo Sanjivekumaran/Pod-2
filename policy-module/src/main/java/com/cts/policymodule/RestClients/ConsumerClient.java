@@ -4,6 +4,7 @@ import com.cts.policymodule.Payload.Response.ConsumerBusinessDetails;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
@@ -12,5 +13,5 @@ import javax.validation.Valid;
 @FeignClient(name = "consumer-service", url = "http://localhost:8133")
 public interface ConsumerClient {
     @GetMapping("/viewConsumerBusiness")
-    public ConsumerBusinessDetails viewConsumerBusiness(@Valid @RequestParam Long consumerId);
+    public ConsumerBusinessDetails viewConsumerBusiness(@RequestHeader String Authorization,@Valid @RequestParam Long consumerId);
 }

@@ -1,5 +1,6 @@
 package com.cts.policymodule.Service;
 
+
 import com.cts.policymodule.Entities.ConsumerPolicy;
 import com.cts.policymodule.Entities.PolicyMaster;
 import com.cts.policymodule.Exception.ConsumerBusinessNotFoundException;
@@ -7,12 +8,14 @@ import com.cts.policymodule.Exception.ConsumerPolicyNotFoundException;
 import com.cts.policymodule.Exception.PolicyNotFoundException;
 import com.cts.policymodule.Payload.Request.CreatePolicyRequest;
 import com.cts.policymodule.Payload.Request.IssuePolicyRequest;
+import com.cts.policymodule.Payload.Response.AuthResponse;
 import com.cts.policymodule.Payload.Response.ConsumerBusinessDetails;
 import com.cts.policymodule.Payload.Response.MessageResponse;
 import com.cts.policymodule.Payload.Response.PolicyDetailsResponse;
 import com.cts.policymodule.Payload.Response.QuoteDetailsResponse;
 import com.cts.policymodule.Repository.ConsumerPolicyRepository;
 import com.cts.policymodule.Repository.PolicyMasterRepository;
+import com.cts.policymodule.RestClients.AuthClient;
 import com.cts.policymodule.RestClients.ConsumerClient;
 import com.cts.policymodule.RestClients.QuotesClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +38,22 @@ public class PolicyService {
 
     @Autowired
     private QuotesClient quotesClient;
-
-    public QuoteDetailsResponse getQuotes(Long businessValue, Long propertyValue, String propertyType) {
-        String quote = quotesClient.quotesResponse(businessValue, propertyValue, propertyType);
+    
+    @Autowired
+	private AuthClient authClient;
+	
+	public boolean isSessionValid(String token) {
+		try {
+			@SuppressWarnings("unused")
+			AuthResponse authResponse = authClient.getValidity(token);
+		} catch (Exception e) {
+			return false;
+		} 
+		return true;	
+	}
+	
+    public QuoteDetailsResponse getQuotes(String Authorization,Long businessValue, Long propertyValue, String propertyType) {
+        String quote = quotesClient.quotesResponse(Authorization, businessValue, propertyValue, propertyType);
         return (new QuoteDetailsResponse(quote));
     }
 
@@ -48,8 +64,8 @@ public class PolicyService {
         return policyDetailsResponse;
     }
 
-    public MessageResponse createPolicy(CreatePolicyRequest createPolicyRequest) throws ConsumerBusinessNotFoundException {
-        ConsumerBusinessDetails consumerBusinessDetails = getConsumerBusiness(createPolicyRequest.getConsumerId());
+    public MessageResponse createPolicy(String Authorization,CreatePolicyRequest createPolicyRequest) throws ConsumerBusinessNotFoundException {
+        ConsumerBusinessDetails consumerBusinessDetails = getConsumerBusiness(Authorization,createPolicyRequest.getConsumerId());
         if (consumerBusinessDetails == null) {
             return new MessageResponse("No Consumer Business Found !!");
         }
@@ -58,8 +74,8 @@ public class PolicyService {
         return new MessageResponse("Policy Has been Created with Policy Consumer Id : " + consumerPolicySave.getId() + " .Thank You Very Much!!");
     }
 
-    public ConsumerBusinessDetails getConsumerBusiness(Long consumerId) throws ConsumerBusinessNotFoundException {
-        ConsumerBusinessDetails consumerBusinessDetails = consumerClient.viewConsumerBusiness(consumerId);
+    public ConsumerBusinessDetails getConsumerBusiness(String Authorization,Long consumerId) throws ConsumerBusinessNotFoundException {
+        ConsumerBusinessDetails consumerBusinessDetails = consumerClient.viewConsumerBusiness(Authorization,consumerId);
         return consumerBusinessDetails;
     }
 
