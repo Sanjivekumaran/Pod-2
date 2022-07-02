@@ -1,23 +1,52 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateComponent } from './consumer/create/create.component';
-import { UpdateConsumerComponent } from './consumer/update-consumer/update-consumer.component';
-import { CreateConsumerComponent } from './consumer/create-consumer/create-consumer.component';
-import { ViewConsumerComponent } from './consumer/view-consumer/view-consumer.component';
-import { CreatePolicyComponent } from './policy/create-policy/create-policy.component';
-import { ViewPolicyComponent } from './policy/view-policy/view-policy.component';
-import { IssuePolicyComponent } from './policy/issue-policy/issue-policy.component';
-import { PolicyComponent } from './policy/policy/policy.component';
-import { ConsumerComponent } from './consumer/consumer/consumer.component';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './views/home/home.component';
+import { ConsumerService } from './services/consumer.service';
+import { PolicyService } from './services/policy.service';
+import { ViewConsumerBusinessComponent } from './views/consumer/view-consumer-business/view-consumer-business.component';
+import { ViewConsumerPropertyComponent } from './views/consumer/view-consumer-property/view-consumer-property.component';
+import { CreatePolicyComponent } from './views/policy/create-policy/create-policy.component';
+import { IssuePolicyComponent } from './views/policy/issue-policy/issue-policy.component';
+import { ViewPolicyComponent } from './views/policy/view-policy/view-policy.component';
+import { ViewQuotesComponent } from './views/policy/view-quotes/view-quotes.component';
+import { CreateConsumerBusinessComponent } from './views/consumer/create-consumer-business/create-consumer-business.component';
+import { CreateConsumerPropertyComponent } from './views/consumer/create-consumer-property/create-consumer-property.component';
+import { UpdateConsumerPropertyComponent } from './views/consumer/update-consumer-property/update-consumer-property.component';
+import { UpdateConsumerBusinessComponent } from './views/consumer/update-consumer-business/update-consumer-business.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
 
 @NgModule({
-  declarations: [AppComponent, CreateComponent, UpdateConsumerComponent, CreateConsumerComponent, ViewConsumerComponent, CreatePolicyComponent, ViewPolicyComponent, IssuePolicyComponent, PolicyComponent, ConsumerComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [],
+  declarations: [
+    AppComponent,
+    CreatePolicyComponent,
+    ViewPolicyComponent,
+    IssuePolicyComponent,
+    HomeComponent,
+    ViewConsumerPropertyComponent,
+    ViewConsumerBusinessComponent,
+    ViewQuotesComponent,
+    CreateConsumerBusinessComponent,
+    CreateConsumerPropertyComponent,
+    UpdateConsumerPropertyComponent,
+    UpdateConsumerBusinessComponent,
+    LoginComponent,
+    RegisterComponent,
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [ConsumerService, PolicyService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

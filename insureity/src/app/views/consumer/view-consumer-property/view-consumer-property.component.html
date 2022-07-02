@@ -1,0 +1,93 @@
+<div align="center">
+    <h1>Business Property Details</h1>
+    <table style="border: 1px solid black;border-collapse: collapse;">
+        <tr>
+            <td>Property ID:</td>
+            <td><span>{{response.propertyId}}</span> </td>
+        </tr>
+        <tr>
+            <td>Business ID:</td>
+            <td>
+                <span>{{response.businessId}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Consumer ID:</td>
+            <td>
+                <span>{{response.consumerId}}</span>
+            </td>
+        </tr>
+        <!-- <tr>
+            <td>Insurance Type:</td>
+            <td>
+                <span>{{response.insuranceId}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Property Type:</td>
+            <td>
+                <span>{{response.}}</span>
+            </td>
+        </tr> -->
+        <tr>
+            <td>Building Sqft:</td>
+            <td>
+                <span>{{response.buildingSqFt}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Building Type:</td>
+            <td>
+                <span>{{response.buildingType}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Building Storeys:</td>
+            <td>
+                <span>{{response.buildingStoreys}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Building Age:</td>
+            <td>
+                <span>{{response.buildingAge}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Property Value:</td>
+            <td>
+                <span>{{response.propertyValue}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Cost of the Asset:</td>
+            <td>
+                <span>{{response.costOftheAsset}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Salvage Value:</td>
+            <td>
+                <span>{{response.salvageValue}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Useful Life of the Asset:</td>
+            <td>
+                <span>{{response.usefulLifeofAsset}}</span>/span>
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+<br>
+<br>
+<table style="border: 1px solid black;border-collapse: collapse;">
+    <tr>
+        <th>Property Details</th>
+        <th>
+            <span>{{response | json}}</span>
+        </th>
+    </tr>
+</table>
