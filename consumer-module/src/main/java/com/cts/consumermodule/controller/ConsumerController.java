@@ -97,7 +97,7 @@ public class ConsumerController {
 	@PostMapping("/updateConsumerBusiness")
 	public ResponseEntity<?> updateConsumerBusiness(@RequestHeader String Authorization,@Valid @RequestBody UpdateRequest updateRequest) {
 		if(consumerService.isSessionValid(Authorization)) {
-			if(businessRepository.existsByBusinessName(updateRequest.getBusinessName())) {
+			if(businessRepository.existsByBusinessName(updateRequest.getBusinessName()) && consumerRepository.existsById(updateRequest.getConsumerId())) {
 				
 				return consumerService.updateConsumerBusiness(updateRequest);
 			}
