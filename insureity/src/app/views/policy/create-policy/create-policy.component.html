@@ -1,0 +1,32 @@
+<h2>Create Policy</h2>
+<form th:action="@{/createPolicy}" method="post">
+    <table>
+        <tr>
+            <td>Consumer ID:</td>
+            <td><input name="consumerid" id="consumerid" type="number" value="" /></td>
+        </tr>
+        <tr>
+            <td>Accepted Quotes</td>
+            <td><input name="acceptedquotes" id="acceptedquotes" type="text" value="" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Create Policy" />
+            </td>
+        </tr>
+
+    </table>
+</form>
+<table>
+    <tr>
+        <td>
+            <h6>Policy Status:</h6>
+        </td>
+        <td>
+            <h6>
+                <span th:text="${policystatus}"></span>
+            </h6>
+        </td>
+    </tr>
+</table>
+<br> <br>
+

@@ -1,0 +1,44 @@
+<h2>Issue Policy</h2>
+<form [formGroup]="issuePolicyForm" (ngSubmit)="onClickIssuePolicy(issuePolicyForm.value)">
+    <table>
+        <tr>
+            <td>Policy ID:</td>
+            <td><input formControlName="policyId" id="policyid" type="text" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td>Consumer ID:</td>
+            <td><input formControlName="consumerId" id="consumerid" type="number" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td>Business Id:</td>
+            <td><input formControlName="businessId" id="businessid" type="number" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td>Payment Details:</td>
+            <td><input formControlName="paymentDetails" id="paymentdetails" type="text" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td>Acceptance Status</td>
+            <td><input formControlName="acceptanceStatus" id="acceptancestatus" type="text" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input class="btn btn-primary" type="submit" value="Issue Policy" /></td>
+        </tr>
+
+    </table>
+</form>
+<table>
+    <tr>
+
+        <td>
+            <h6>Issue Policy Status:</h6>
+        </td>
+        <td>
+            <h6>
+                <span>{{policyResponse}}</span>
+            </h6>
+        </td>
+
+    </tr>
+</table>
+<br> <br>

@@ -1,19 +1,52 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateConsumerComponent } from './consumer/create-consumer/create-consumer.component';
-import { UpdateConsumerComponent } from './consumer/update-consumer/update-consumer.component';
-import { ViewConsumerComponent } from './consumer/view-consumer/view-consumer.component';
-import { CreatePolicyComponent } from './policy/create-policy/create-policy.component';
-import { IssuePolicyComponent } from './policy/issue-policy/issue-policy.component';
-import { ViewPolicyComponent } from './policy/view-policy/view-policy.component';
+import { CreateConsumerBusinessComponent } from './views/consumer/create-consumer-business/create-consumer-business.component';
+import { CreateConsumerPropertyComponent } from './views/consumer/create-consumer-property/create-consumer-property.component';
+import { UpdateConsumerBusinessComponent } from './views/consumer/update-consumer-business/update-consumer-business.component';
+import { UpdateConsumerPropertyComponent } from './views/consumer/update-consumer-property/update-consumer-property.component';
+import { ViewConsumerBusinessComponent } from './views/consumer/view-consumer-business/view-consumer-business.component';
+import { ViewConsumerPropertyComponent } from './views/consumer/view-consumer-property/view-consumer-property.component';
+import { HomeComponent } from './views/home/home.component';
+import { LoginComponent } from './views/login/login.component';
+import { CreatePolicyComponent } from './views/policy/create-policy/create-policy.component';
+import { IssuePolicyComponent } from './views/policy/issue-policy/issue-policy.component';
+import { ViewPolicyComponent } from './views/policy/view-policy/view-policy.component';
+import { ViewQuotesComponent } from './views/policy/view-quotes/view-quotes.component';
+import { RegisterComponent } from './views/register/register.component';
 
 const routes: Routes = [
-  { path: 'viewConsumer/:id', component: ViewConsumerComponent },
-  { path: 'createConsumer', component: CreateConsumerComponent },
-  { path: 'updateConsumer', component: UpdateConsumerComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'createConsumerProperty',
+    component: CreateConsumerPropertyComponent,
+  },
+  {
+    path: 'createConsumerBusiness',
+    component: CreateConsumerBusinessComponent,
+  },
   { path: 'createPolicy', component: CreatePolicyComponent },
+
+  {
+    path: 'updateConsumerProperty',
+    component: UpdateConsumerPropertyComponent,
+  },
+  {
+    path: 'updateConsumerBusiness',
+    component: UpdateConsumerBusinessComponent,
+  },
   { path: 'issuePolicy', component: IssuePolicyComponent },
-  { path: 'viewPolicy/:id', component: ViewPolicyComponent },
+
+  {
+    path: 'viewConsumerBusiness',
+    component: ViewConsumerBusinessComponent,
+  },
+  { path: 'viewConsumerProperty', component: ViewConsumerPropertyComponent },
+  { path: 'viewPolicy', component: ViewPolicyComponent },
+  { path: 'viewQuotes', component: ViewQuotesComponent },
 ];
 
 @NgModule({
