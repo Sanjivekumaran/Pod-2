@@ -53,6 +53,9 @@ public class PolicyController {
 	    	if (!consumerPolicyRepository.existsByConsumerId(issuePolicyRequest.getConsumerId())) {
 	            return new MessageResponse("Sorry!!, No Consumer Found!!");
 	        }
+	    	if (!consumerPolicyRepository.existsByBusinessId(issuePolicyRequest.getBusinessId())) {
+	            return new MessageResponse("Sorry!!, No Consumer Found!!");
+	        }
 	        if (!policyMasterRepository.existsByPolicyId(issuePolicyRequest.getPolicyId())) {
 	            return new MessageResponse("Sorry!!, No Policy Found!!");
 	        }

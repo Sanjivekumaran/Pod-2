@@ -1,6 +1,7 @@
 package com.cts.policymodule.Repository;
 
 import com.cts.policymodule.Entities.ConsumerPolicy;
+
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ public interface ConsumerPolicyRepository extends JpaRepository<ConsumerPolicy, 
     ConsumerPolicy findByConsumerIdAndBusinessId(Long consumerId, Long businessId);
 
     boolean existsByConsumerId(Long consumerId);
+
+	boolean existsByBusinessId(long businessId);
 }
