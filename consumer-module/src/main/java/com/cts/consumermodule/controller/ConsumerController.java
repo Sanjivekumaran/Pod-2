@@ -27,115 +27,116 @@ import com.cts.consumermodule.service.ConsumerService;
 
 @RestController
 public class ConsumerController {
-	
+
 	@Autowired
 	private ConsumerService consumerService;
-	
+
 	@Autowired
 	private ConsumerRepository consumerRepository;
-	
+
 	@Autowired
 	private BusinessRepository businessRepository;
-	
+
 	@Autowired
 	private PropertyRepository propertyRepository;
-	
+
 	@PostMapping("/createConsumerBusiness")
-	public ResponseEntity<?> createConsumerBusiness(@RequestHeader String Authorization,@RequestBody ConsumerBusinessRequest inputRequest) {
-		if(consumerService.isSessionValid(Authorization)) {
-		  if(businessRepository.existsByBusinessName(inputRequest.getBusinessName())) {
+	public ResponseEntity<?> createConsumerBusiness(@RequestHeader String Authorization,
+			@RequestBody ConsumerBusinessRequest inputRequest) {
+		if (consumerService.isSessionValid(Authorization)) {
+			if (businessRepository.existsByBusinessName(inputRequest.getBusinessName())) {
 				return ResponseEntity.badRequest().body("Business already exists");
 			}
-			if(consumerRepository.existsByPan(inputRequest.getPan())) {
+			if (consumerRepository.existsByPan(inputRequest.getPan())) {
 				return ResponseEntity.badRequest().body("Consumer already exists");
 			}
 			return consumerService.createConsumerBusiness(inputRequest);
-		}
-		else {
+		} else {
 			return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
 		}
 	}
-	
+
 	@GetMapping("/viewConsumerBusiness")
-	public ResponseEntity<?> viewConsumerBusinessResponse(@RequestHeader String Authorization,@RequestParam Long consumerId){
-		if(consumerService.isSessionValid(Authorization)) {
+	public ResponseEntity<?> viewConsumerBusinessResponse(@RequestHeader String Authorization,
+			@RequestParam Long consumerId) {
+		if (consumerService.isSessionValid(Authorization)) {
 			if (!consumerRepository.existsById(consumerId)) {
 				return ResponseEntity.badRequest().body("No Consumer Found!!");
 			}
-			if (businessRepository.findByConsumerId(consumerId)==null) {
+			if (businessRepository.findByConsumerId(consumerId) == null) {
 				return ResponseEntity.badRequest().body("No Business Found!!");
 			}
 			ConsumerBusinessResponse consumerBusinessDetails = consumerService.viewConsumerBusiness(consumerId);
-			
+
 			return ResponseEntity.ok(consumerBusinessDetails);
-		}
-		else {
+		} else {
 			return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
 		}
 	}
-	
+
 	@GetMapping("/viewConsumerProperty")
-	public ResponseEntity<?> viewConsumerProperty(@RequestHeader String Authorization,@Valid @RequestParam Long consumerId, @RequestParam Long propertyId){
-		if(consumerService.isSessionValid(Authorization)) {
+	public ResponseEntity<?> viewConsumerProperty(@RequestHeader String Authorization,
+			@Valid @RequestParam Long consumerId, @RequestParam Long propertyId) {
+		if (consumerService.isSessionValid(Authorization)) {
 			if (!propertyRepository.existsById(propertyId)) {
 				return ResponseEntity.badRequest().body("No Property Found!!");
 			}
 			if (!consumerRepository.existsById(consumerId)) {
 				return ResponseEntity.badRequest().body("No Consumer Found!!");
 			}
-			if (businessRepository.findByConsumerId(consumerId)==null) {
+			if (businessRepository.findByConsumerId(consumerId) == null) {
 				return ResponseEntity.badRequest().body("No Business Found!!");
 			}
 			Optional<Property> property = propertyRepository.findById(propertyId);
 			return ResponseEntity.ok(property);
-		}
-		else {
+		} else {
 			return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
 		}
 	}
-	
+
 	@PostMapping("/updateConsumerBusiness")
-	public ResponseEntity<?> updateConsumerBusiness(@RequestHeader String Authorization,@Valid @RequestBody UpdateRequest updateRequest) {
-		if(consumerService.isSessionValid(Authorization)) {
-			if(businessRepository.existsByBusinessName(updateRequest.getBusinessName()) && consumerRepository.existsById(updateRequest.getConsumerId())) {
-				
+	public ResponseEntity<?> updateConsumerBusiness(@RequestHeader String Authorization,
+			@Valid @RequestBody UpdateRequest updateRequest) {
+		if (consumerService.isSessionValid(Authorization)) {
+			if (businessRepository.existsByBusinessName(updateRequest.getBusinessName())
+					&& consumerRepository.existsById(updateRequest.getConsumerId())) {
+
 				return consumerService.updateConsumerBusiness(updateRequest);
 			}
 			return ResponseEntity.badRequest().body("Business/Consumer doesnt exists");
-		}
-		else {
+		} else {
 			return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
 		}
 	}
-	
+
 	@PostMapping("/createBusinessProperty")
-	public ResponseEntity<?> createBusinessProperty(@RequestHeader String Authorization,@Valid @RequestBody BusinessInputRequest inputRequest) {
-		if(consumerService.isSessionValid(Authorization)) {
-			if(propertyRepository.existsByBusinessId(inputRequest.getBusinessId())) {
+	public ResponseEntity<?> createBusinessProperty(@RequestHeader String Authorization,
+			@Valid @RequestBody BusinessInputRequest inputRequest) {
+		if (consumerService.isSessionValid(Authorization)) {
+			if (propertyRepository.existsByBusinessId(inputRequest.getBusinessId())) {
 				return ResponseEntity.badRequest().body("BusinessProperty already exists");
 			}
-			if(!consumerRepository.existsById(inputRequest.getConsumerId())) {
+			if (!consumerRepository.existsById(inputRequest.getConsumerId())) {
 				return ResponseEntity.badRequest().body("Consumer doesnot exists");
 			}
-			if(!businessRepository.existsById(inputRequest.getBusinessId())) {
+			if (!businessRepository.existsById(inputRequest.getBusinessId())) {
 				return ResponseEntity.badRequest().body("Business doesnot exists");
 			}
 			return consumerService.createBusinessProperty(inputRequest);
-		}
-		else {
+		} else {
 			return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
 		}
 	}
-	
+
 	@PostMapping("/updateBusinessProperty")
-	public ResponseEntity<?> updateBusinessProperty(@RequestHeader String Authorization,@Valid @RequestBody BusinessUpdateRequest updateRequest) {
-		if(consumerService.isSessionValid(Authorization)) {
-			if(propertyRepository.existsByConsumerId(updateRequest.getConsumerId())) {
+	public ResponseEntity<?> updateBusinessProperty(@RequestHeader String Authorization,
+			@Valid @RequestBody BusinessUpdateRequest updateRequest) {
+		if (consumerService.isSessionValid(Authorization)) {
+			if (propertyRepository.existsByConsumerId(updateRequest.getConsumerId())) {
 				return consumerService.updateBusinessProperty(updateRequest);
 			}
 			return ResponseEntity.badRequest().body("Business/Property doesnt exists");
-		}
-		else {
+		} else {
 			return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
 		}
 	}
