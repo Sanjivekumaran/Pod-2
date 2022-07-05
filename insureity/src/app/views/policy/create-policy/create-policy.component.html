@@ -1,32 +1,31 @@
-<h2>Create Policy</h2>
-<form th:action="@{/createPolicy}" method="post">
-    <table>
-        <tr>
-            <td>Consumer ID:</td>
-            <td><input name="consumerid" id="consumerid" type="number" value="" /></td>
-        </tr>
-        <tr>
-            <td>Accepted Quotes</td>
-            <td><input name="acceptedquotes" id="acceptedquotes" type="text" value="" /></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Create Policy" />
-            </td>
-        </tr>
+<div class="container center" *ngIf="response==null">
+    <h2>Create Policy</h2>
+    <form [formGroup]="policyForm" (ngSubmit)="onSubmit(policyForm.value)" method="post">
+        <table>
+            <tr>
+                <td>Consumer ID:</td>
+                <td><input formControlName="consumerId" id="consumerid" type="number" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td>Accepted Quotes</td>
+                <td><input formControlName="acceptedQuotes" id="acceptedquotes" type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" class="btn btn-success" value="Create Policy" />
+                </td>
+            </tr>
 
-    </table>
-</form>
-<table>
-    <tr>
-        <td>
-            <h6>Policy Status:</h6>
-        </td>
-        <td>
-            <h6>
-                <span th:text="${policystatus}"></span>
-            </h6>
-        </td>
-    </tr>
+        </table>
+    </form>
+</div>
+<table style="border: 1px solid black;border-collapse: collapse;">
+    <div *ngIf="response!=null || errorMsg!=''">
+
+        <h6>Policy Status:</h6>
+        <h6>
+            <span class="text-success">{{response}}</span>
+            <span class="text-danger">{{errorMsg}}</span>
+        </h6>
+
+    </div>
 </table>
-<br> <br>
-

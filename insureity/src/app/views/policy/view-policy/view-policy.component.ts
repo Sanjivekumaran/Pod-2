@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerService } from 'app/services/consumer.service';
 import { PolicyService } from 'app/services/policy.service';
 
@@ -9,27 +9,39 @@ import { PolicyService } from 'app/services/policy.service';
   styleUrls: ['./view-policy.component.css'],
 })
 export class ViewPolicyComponent implements OnInit {
-  public consumerId: any;
-  public response: any;
-  state: any;
-  constructor(private _policyService: PolicyService, private _router: Router) {}
+  public hasError: boolean = false;
+  public errorMsg: string = '';
+  public response: any = {};
+  public state: any = { consumerId: null, policyId: null };
+
+  constructor(
+    private _policyService: PolicyService,
+    private _router: Router,
+    private _Activatedroute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.state = history.state;
+    this.state.consumerId =
+      this._Activatedroute.snapshot.paramMap.get('consumerId');
+    this.state.policyId =
+      this._Activatedroute.snapshot.paramMap.get('policyId');
     console.log(this.state);
 
-    this.getConsumerBusiness();
+    this.getPolicy();
   }
 
-  public getConsumerBusiness(): any {
+  public getPolicy(): any {
     return this._policyService
-      .getPolicy(this.state.consumerId, this.state.policyId)
+      .getPolicy(this.state.policyId, this.state.consumerId)
       .subscribe(
         (policy: any) => {
           console.log(policy);
           this.response = policy;
         },
         (error: any) => {
+          this.hasError = true;
+          if (error.error.message != null) this.errorMsg = error.error.message;
+          else this.errorMsg = error.error;
           console.error(error);
         }
       );
