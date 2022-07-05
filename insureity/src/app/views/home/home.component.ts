@@ -10,24 +10,20 @@ import { PolicyService } from 'app/services/policy.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  public consumerId: any;
-
-  public consumerId2: any;
-  public propertyId: any;
-
-  public businessValue: any;
-  public propertyValue: any;
-  public propertyType: any;
-
-  public consumerId3: any;
-  public policyId: any;
-
   public quoteResponse: any;
 
   public consumerBusinessForm!: FormGroup;
   public consumerPropertyForm!: FormGroup;
   public policyForm!: FormGroup;
   public quotesForm!: FormGroup;
+
+  consumerError: any;
+  propertyError: any;
+  quotesError: any;
+  policyError: any;
+
+  hasError: boolean = false;
+  errorMsg: any;
 
   constructor(
     private _consumerService: ConsumerService,
@@ -62,44 +58,123 @@ export class HomeComponent implements OnInit {
     this._router.navigate(['/createConsumerBusiness']);
   }
   public onClickViewConsumerBusiness(consumerBusinessForm: any): void {
+    if (consumerBusinessForm.consumerId == null) {
+      this.consumerError = 'Consumer Id is required';
+      return;
+    }
     // this._router.navigate(['/viewConsumerBusiness/']);
-    this._router.navigateByUrl('/viewConsumerBusiness', {
-      state: consumerBusinessForm,
-    });
+    this._router.navigateByUrl(
+      '/viewConsumerBusiness/' + consumerBusinessForm.consumerId
+    );
   }
-  public onClickUpdateConsumerBusiness(): void {
-    this._router.navigate(['/updateConsumerBusiness']);
+  public onClickUpdateConsumerBusiness(consumerBusinessForm: any): void {
+    if (consumerBusinessForm.consumerId == null) {
+      this.consumerError = 'Consumer Id is required';
+      return;
+    }
+    this._router.navigate([
+      '/updateConsumerBusiness/' + consumerBusinessForm.consumerId,
+    ]);
   }
 
   // consumer property function
   public onClickViewConsumerProperty(consumerPropertyForm: any): void {
+    if (
+      consumerPropertyForm.consumerId2 == null &&
+      consumerPropertyForm.propertyId == null
+    ) {
+      this.propertyError = 'Consumer Id and Property Id is required';
+      return;
+    }
+    if (consumerPropertyForm.consumerId2 == null) {
+      this.propertyError = 'Consumer Id is required';
+      return;
+    }
+    if (consumerPropertyForm.propertyId == null) {
+      this.propertyError = 'Property Id is required';
+      return;
+    }
     // this._router.navigate(['/viewConsumerProperty']);
-    this._router.navigateByUrl('/viewConsumerProperty', {
-      state: consumerPropertyForm,
-    });
+    this._router.navigateByUrl(
+      '/viewConsumerProperty/' +
+        consumerPropertyForm.consumerId2 +
+        '/' +
+        consumerPropertyForm.propertyId
+    );
   }
   public onClickAddConsumerProperty(): void {
     this._router.navigate(['/createConsumerProperty']);
   }
-  public onClickUpdateConsumerProperty(): void {
-    this._router.navigate(['/updateConsumerProperty']);
+  public onClickUpdateConsumerProperty(consumerPropertyForm: any): void {
+    if (
+      consumerPropertyForm.consumerId2 == null &&
+      consumerPropertyForm.propertyId == null
+    ) {
+      this.propertyError = 'Consumer Id and Property Id is required';
+      return;
+    }
+    if (consumerPropertyForm.consumerId2 == null) {
+      this.propertyError = 'Consumer Id is required';
+      return;
+    }
+    if (consumerPropertyForm.propertyId == null) {
+      this.propertyError = 'Property Id is required';
+      return;
+    }
+    this._router.navigate([
+      '/updateConsumerProperty/' +
+        consumerPropertyForm.consumerId2 +
+        '/' +
+        consumerPropertyForm.propertyId,
+    ]);
   }
 
   // quotes function
   public onClickViewQuotes(quotesForm: any): void {
+    if (
+      quotesForm.businessValue == null ||
+      quotesForm.propertyValue == null ||
+      quotesForm.propertyType == null
+    ) {
+      this.quotesError = 'All fields are required';
+      return;
+    }
     // todo: check
-    this.quoteResponse = '81,000 INR';
+    return this._policyService
+      .getQuotes(
+        quotesForm.businessValue,
+        quotesForm.propertyValue,
+        quotesForm.propertyType
+      )
+      .subscribe(
+        (policy: any) => {
+          console.log(policy);
+          this.quoteResponse = policy.quotes;
+        },
+        (error: any) => {
+          this.hasError = true;
+          if (error.error.message != null) this.errorMsg = error.error.message;
+          else this.errorMsg = error.error;
+          console.error(error);
+        }
+      );
   }
 
   // policy function
   public onClickViewPolicy(policyForm: any): void {
     // this._router.navigate(['/viewPolicy']);
-
-    this._router.navigateByUrl('/viewPolicy', {
-      state: policyForm,
-    });
+    if (policyForm.consumerId3 == null || policyForm.policyId == null) {
+      this.policyError = 'All fields are required';
+      return;
+    }
+    this._router.navigateByUrl(
+      '/viewPolicy/' + policyForm.consumerId3 + '/' + policyForm.policyId
+    );
   }
   public onClickAddPolicy(): void {
     this._router.navigate(['/createPolicy']);
+  }
+  public onClickIssuePolicy(): void {
+    this._router.navigate(['/issuePolicy']);
   }
 }

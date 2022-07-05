@@ -1,138 +1,174 @@
 <div align="center">
-    <br> <br>
-    <h2>View Consumer Business</h2>
-    <form [formGroup]="consumerBusinessForm" (ngSubmit)="onClickViewConsumerBusiness(consumerBusinessForm.value)">
-        <table>
-            <tr>
-                <td>Consumer ID:</td>
-                <td><input formControlName="consumerId" type="number" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" class="btn btn-primary" value="View Consumer Business" />
-                    <!-- <button class="btn btn-primary">View Consumer Business</button> -->
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button class="btn btn-primary" (click)="onClickUpdateConsumerBusiness()">Update Consumer
-                        Business</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button class="btn btn-primary" (click)="onClickAddConsumerBusiness()">Create Consumer
-                        Business</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-    <br> <br>
+    <app-card>
+        <div class="content"><br> <br>
+            <h2>View Consumer Business</h2>
+            <form [formGroup]="consumerBusinessForm"
+                (ngSubmit)="onClickViewConsumerBusiness(consumerBusinessForm.value)">
+                <table>
+                    <tr>
+                        <td>Consumer ID:</td>
+                        <td><input formControlName="consumerId" type="number" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" class="btn btn-primary" value="View Consumer Business" />
+                            <!-- <button class="btn btn-primary">View Consumer Business</button> -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary"
+                                (click)="onClickUpdateConsumerBusiness(consumerBusinessForm.value)">Update Consumer
+                                Business</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary" (click)="onClickAddConsumerBusiness()">Create Consumer
+                                Business</button>
+                        </td>
+                    </tr>
 
-    <h2>View Consumer Property</h2>
-    <form [formGroup]="consumerPropertyForm" (ngSubmit)="onClickViewConsumerProperty(consumerPropertyForm.value)">
-        <table>
-            <tr>
-                <td>Consumer ID:</td>
-                <td><input formControlName="consumerId2" id="consumerid" type="number" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td>Property ID:</td>
-                <td><input formControlName="propertyId" id="propertyid" type="number" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <!-- <input type="submit" value="View Consumer Business" /> -->
-                    <button class="btn btn-primary">View
-                        Consumer Property </button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button class="btn btn-primary" (click)="onClickUpdateConsumerProperty()">Update Consumer
-                        Property</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button class="btn btn-primary" (click)="onClickAddConsumerProperty()">Create Consumer
-                        Property</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-    <br> <br>
+                </table>
+            </form>
+            <div class="alert alert-danger" role="alert" *ngIf="consumerError!=null">
+                {{consumerError}}
+            </div>
+        </div>
+    </app-card>
 
-    <h2>View Quotes</h2>
-    <form [formGroup]="quotesForm" (ngSubmit)="onClickViewQuotes(quotesForm.value)">
-        <table>
-            <tr>
-                <td>Business Value:</td>
-                <td><input formControlName="businessValue" id="businessValue" type="number" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td>Property Value:</td>
-                <td><input formControlName="propertyValue" id="propertyValue" type="number" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td>Property Type:</td>
-                <td><input formControlName="propertyType" id="propertyType" type="text" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <!-- <input type="submit" value="View Consumer Business" /> -->
-                    <button class="btn btn-primary">View Quotes</button>
-                </td>
-            </tr>
-            <tr>
-                <!-- <td colspan="2">
-                    <button class="btn btn-primary" (click)="onClickAddQuotes()">Create Consumer Business</button>
-                </td> -->
-            </tr>
+    <app-card>
+        <div class="content">
+            <h2>View Consumer Property</h2>
+            <form [formGroup]="consumerPropertyForm"
+                (ngSubmit)="onClickViewConsumerProperty(consumerPropertyForm.value)">
+                <table>
+                    <tr>
+                        <td>Consumer ID:</td>
+                        <td><input formControlName="consumerId2" id="consumerid" type="number" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Property ID:</td>
+                        <td><input formControlName="propertyId" id="propertyid" type="number" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <!-- <input type="submit" value="View Consumer Business" /> -->
+                            <button class="btn btn-primary">View
+                                Consumer Property </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary"
+                                (click)="onClickUpdateConsumerProperty(consumerPropertyForm.value)">Update Consumer
+                                Property</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary" (click)="onClickAddConsumerProperty()">Create Consumer
+                                Property</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="alert alert-danger" role="alert" *ngIf="propertyError!=null">
+                {{propertyError}}
+            </div>
+        </div>
+    </app-card>
 
-        </table>
-    </form>
-    <table>
-        <tr>
-            <td>
-                <h6>Quotes:</h6>
-            </td>
-            <td>
-                <h6>
-                    <span>{{quoteResponse}}</span>
-                </h6>
-            </td>
-        </tr>
-    </table>
-    <br> <br>
+    <app-card>
+        <div class="content">
+            <h2>View Quotes</h2>
+            <form [formGroup]="quotesForm" (ngSubmit)="onClickViewQuotes(quotesForm.value)">
+                <table>
+                    <tr>
+                        <td>Business Value:</td>
+                        <td><input formControlName="businessValue" id="businessValue" type="number"
+                                class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td>Property Value:</td>
+                        <td><input formControlName="propertyValue" id="propertyValue" type="number"
+                                class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td>Property Type:</td>
+                        <td><input formControlName="propertyType" id="propertyType" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <!-- <input type="submit" value="View Consumer Business" /> -->
+                            <button class="btn btn-primary">View Quotes</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <td colspan="2">
+                        <button class="btn btn-primary" (click)="onClickAddQuotes()">Create Consumer Business</button>
+                    </td> -->
+                    </tr>
 
-    <h2>View Policy</h2>
-    <form [formGroup]="policyForm" (ngSubmit)="onClickViewConsumerBusiness(policyForm.value)">
-        <table>
-            <tr>
-                <td>Consumer ID:</td>
-                <td><input formControlName="consumerId3" id="consumerid" type="number" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td>Policy ID:</td>
-                <td><input formControlName="policyId" id="policyid" type="text" class="form-control" /></td>
-            </tr>
+                </table>
+            </form>
+            <div class="alert alert-danger" role="alert" *ngIf="quotesError!=null">
+                {{quotesError}}
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <h6>Quotes:</h6>
+                    </td>
+                    <td>
+                        <h6>
+                            <span>{{quoteResponse}}</span>
+                        </h6>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </app-card>
 
-            <tr>
-                <td colspan="2">
-                    <button class="btn btn-primary">View Consumer
-                        Policy</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button class="btn btn-primary" (click)="onClickAddPolicy()">Create Consumer Policy</button>
-                </td>
-            </tr>
+    <app-card>
+        <div class="content">
+            <h2>View Policy</h2>
+            <form [formGroup]="policyForm" (ngSubmit)="onClickViewPolicy(policyForm.value)">
+                <table>
+                    <tr>
+                        <td>Consumer ID:</td>
+                        <td><input formControlName="consumerId3" id="consumerid" type="number" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Policy ID:</td>
+                        <td><input formControlName="policyId" id="policyid" type="text" class="form-control" /></td>
+                    </tr>
 
-        </table>
-    </form>
-    <br> <br>
-
-    <app-issue-policy></app-issue-policy>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary">View Consumer
+                                Policy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary" (click)="onClickAddPolicy()">Create Consumer Policy</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary" (click)="onClickIssuePolicy()">Issue Created Policy</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="alert alert-danger" role="alert" *ngIf="policyError!=null">
+                {{policyError}}
+            </div>
+        </div>
+    </app-card>
 </div>

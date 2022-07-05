@@ -31,21 +31,27 @@ const routes: Routes = [
   { path: 'createPolicy', component: CreatePolicyComponent },
 
   {
-    path: 'updateConsumerProperty',
+    path: 'updateConsumerProperty/:consumerId/:propertyId',
     component: UpdateConsumerPropertyComponent,
   },
   {
-    path: 'updateConsumerBusiness',
+    path: 'updateConsumerBusiness/:consumerId',
     component: UpdateConsumerBusinessComponent,
   },
   { path: 'issuePolicy', component: IssuePolicyComponent },
 
   {
-    path: 'viewConsumerBusiness',
+    path: 'viewConsumerBusiness/:consumerId',
     component: ViewConsumerBusinessComponent,
   },
-  { path: 'viewConsumerProperty', component: ViewConsumerPropertyComponent },
-  { path: 'viewPolicy', component: ViewPolicyComponent },
+  {
+    path: 'viewConsumerProperty/:consumerId/:propertyId',
+    component: ViewConsumerPropertyComponent,
+  },
+  {
+    path: 'viewPolicy/:consumerId/:policyId',
+    component: ViewPolicyComponent,
+  },
   { path: 'viewQuotes', component: ViewQuotesComponent },
 ];
 
