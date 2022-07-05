@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class PolicyModuleApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void main() {
+		PolicyModuleApplication.main(new String[] {});
 	}
 
 }

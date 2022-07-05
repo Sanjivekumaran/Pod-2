@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 import com.cts.authorizationmodule.model.UserModel;
 import com.cts.authorizationmodule.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
@@ -23,9 +26,12 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserModel user=userRepository.findById(username).orElse(null);
 		if(user!=null) {
+			log.info("{}, Information: Successfully Authenticated user", this.getClass().getSimpleName());
 			return new User(user.getId(), user.getPassword(), new ArrayList<>());
 		}
 		else {
+			log.debug("{}, Information: Throwing UsernameNotFoundException with message 'UsernameNotFoundException'",
+                    this.getClass().getSimpleName());
 			throw new UsernameNotFoundException("UsernameNotFoundException");
 		}
 	}
