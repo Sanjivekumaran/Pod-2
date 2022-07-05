@@ -55,7 +55,7 @@ public class UpdateRequest {
 	private Long businessAge;
 	
 	@NotNull
-	private String totalEmployees;
+	private Long totalEmployees;
 
 }
 
