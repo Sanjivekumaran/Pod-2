@@ -9,6 +9,9 @@ import { PolicyService } from 'app/services/policy.service';
 })
 export class IssuePolicyComponent implements OnInit {
   public issuePolicyForm!: FormGroup;
+  public hasError: boolean = false;
+  public errorMsg: string = '';
+  public state: any;
   public policyResponse: any;
   constructor(private _policyService: PolicyService) {}
 
@@ -24,9 +27,16 @@ export class IssuePolicyComponent implements OnInit {
 
   public onClickIssuePolicy(issuePolicyForm: any): void {
     // todo: check
-    this._policyService.issuePolicy(issuePolicyForm).subscribe((data: any) => {
-      this.policyResponse =
-        'Policy has been issued to Policy Customer Id:' + data.customerId;
-    });
+    this._policyService.issuePolicy(issuePolicyForm).subscribe(
+      (data: any) => {
+        this.policyResponse = data.message;
+      },
+      (error: any) => {
+        this.hasError = true;
+        if (error.error.error != null) this.errorMsg = error.error.error;
+        else this.errorMsg = error.error;
+        console.error(error);
+      }
+    );
   }
 }

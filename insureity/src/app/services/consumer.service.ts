@@ -1,9 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Consumer } from 'app/models/consumer.model';
 import { Property } from 'app/models/property.model';
+import { URLs } from 'app/_shared/urls';
+import { Observable } from 'rxjs/internal/Observable';
 
-const CONSUMER_API_BASE_URL = 'https://jsonplaceholder.typicode.com/todos';
+const headers = new HttpHeaders().set('Content-Type', 'application/json');
+const requestOptions: Object = {
+  headers: headers,
+  responseType: 'text',
+};
 
 @Injectable({
   providedIn: 'root',
@@ -11,35 +17,58 @@ const CONSUMER_API_BASE_URL = 'https://jsonplaceholder.typicode.com/todos';
 export class ConsumerService {
   constructor(private http: HttpClient) {}
   // createConsumerBusiness
-  public addConsumerBusiness(consumer: Consumer): any {
-    return this.http.post<Consumer>(CONSUMER_API_BASE_URL, consumer);
+  public addConsumerBusiness(consumer: any): any {
+    console.log(consumer);
+    return this.http.post<any>(
+      URLs.CONSUMER_API_BASE_URL + 'createConsumerBusiness',
+      consumer,
+      requestOptions
+    );
   }
 
   // createBusinessProperty
   public addBusinessProperty(property: Property): any {
-    return this.http.post<Property>(CONSUMER_API_BASE_URL, property);
+    return this.http.post<Property>(
+      URLs.CONSUMER_API_BASE_URL + 'createBusinessProperty',
+      property,
+      requestOptions
+    );
   }
 
   // updateConsumerBusiness
   public updateConsumerBusiness(consumer: Consumer): any {
-    return this.http.put<Consumer>(CONSUMER_API_BASE_URL, consumer);
+    return this.http.post<Consumer>(
+      URLs.CONSUMER_API_BASE_URL + 'updateConsumerBusiness',
+      consumer,
+      requestOptions
+    );
   }
 
   // updateBusinessProperty
   public updateBusinessProperty(property: Property): any {
-    return this.http.put<Consumer>(CONSUMER_API_BASE_URL, property);
+    return this.http.post<Consumer>(
+      URLs.CONSUMER_API_BASE_URL + 'updateBusinessProperty',
+      property,
+      requestOptions
+    );
   }
 
   // viewConsumerBusiness
-  public getConsumerBusiness(id: number): any {
-    console.log(CONSUMER_API_BASE_URL + '/' + id);
-    return this.http.get<Consumer>(CONSUMER_API_BASE_URL + '/' + id); //.pipe(map((response: any) => response.json()));
+  public getConsumerBusiness(id: number): Observable<any> {
+    return this.http.get(
+      URLs.CONSUMER_API_BASE_URL + 'viewConsumerBusiness?consumerId=' + id,
+      { responseType: 'json' }
+    ); //.pipe(map((response: any) => response.json()));
   }
 
   // viewConsumerProperty
-  public getConsumerProperty(consumerId: number, propertyId: number): any {
+  public getConsumerProperty(consumerId: string, propertyId: number): any {
     return this.http.get<Property>(
-      CONSUMER_API_BASE_URL + '/' + consumerId + '/' + propertyId
+      URLs.CONSUMER_API_BASE_URL +
+        'viewConsumerProperty?consumerId=' +
+        consumerId +
+        '&propertyId=' +
+        propertyId
     );
   }
 }

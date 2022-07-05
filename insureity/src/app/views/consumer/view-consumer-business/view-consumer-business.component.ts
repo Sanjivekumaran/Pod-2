@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerService } from 'app/services/consumer.service';
 
 @Component({
@@ -8,32 +8,35 @@ import { ConsumerService } from 'app/services/consumer.service';
   styleUrls: ['./view-consumer-business.component.css'],
 })
 export class ViewConsumerBusinessComponent implements OnInit {
-  public consumerId: any;
-  public response: any;
+  public hasError: boolean = false;
+  public errorMsg: string = '';
+  public response: any = {};
   state: any;
   constructor(
     private _consumerService: ConsumerService,
+    private _activatedroute: ActivatedRoute,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
-    this.state = history.state;
+    this.state = this._activatedroute.snapshot.paramMap.get('consumerId');
     console.log(this.state);
 
     this.getConsumerBusiness();
   }
 
   public getConsumerBusiness(): any {
-    return this._consumerService
-      .getConsumerBusiness(this.state.consumerId)
-      .subscribe(
-        (consumerBusiness: any) => {
-          console.log(consumerBusiness);
-          this.response = consumerBusiness;
-        },
-        (error: any) => {
-          console.error(error);
-        }
-      );
+    return this._consumerService.getConsumerBusiness(this.state).subscribe(
+      (consumerBusiness: any) => {
+        console.log(consumerBusiness);
+        this.response = consumerBusiness;
+      },
+      (error: any) => {
+        this.hasError = true;
+        if (error.error.error != null) this.errorMsg = error.error.error;
+        else this.errorMsg = error.error;
+        console.error(error);
+      }
+    );
   }
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
@@ -20,6 +20,8 @@ import { UpdateConsumerPropertyComponent } from './views/consumer/update-consume
 import { UpdateConsumerBusinessComponent } from './views/consumer/update-consumer-business/update-consumer-business.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import { AuthInterceptor } from './_helpers/auth.interceptor';
+import { CardComponent } from './_shared/card/card.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { RegisterComponent } from './views/register/register.component';
     UpdateConsumerBusinessComponent,
     LoginComponent,
     RegisterComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,11 @@ import { RegisterComponent } from './views/register/register.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [ConsumerService, PolicyService],
+  providers: [
+    ConsumerService,
+    PolicyService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

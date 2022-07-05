@@ -8,12 +8,14 @@ import { TokenStorageService } from 'app/services/token-storage.service';
 })
 export class LoginComponent implements OnInit {
   form: any = {
+    id: null,
     username: null,
     password: null,
   };
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  responseText = '';
   roles: string[] = [];
   constructor(
     private authService: AuthService,
@@ -26,13 +28,15 @@ export class LoginComponent implements OnInit {
     }
   }
   onSubmit(): void {
-    const { username, password } = this.form;
-    this.authService.login(username, password).subscribe(
-      (data: { accessToken: any }) => {
-        this.tokenStorage.saveToken(data.accessToken);
+    const { id, username, password } = this.form;
+    this.authService.login(id, username, password).subscribe(
+      (data) => {
+        console.log(data);
+        this.tokenStorage.saveToken(data.authToken);
         this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        this.responseText = 'Auth Token: ' + data.authToken;
         this.roles = this.tokenStorage.getUser().roles;
         this.reloadPage();
       },
