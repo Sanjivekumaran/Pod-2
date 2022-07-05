@@ -50,8 +50,8 @@ public class ConsumerBusinessResponse {
 	@NotNull
 	private Long businessAge;
 	
-	@NotBlank
-	private String totalEmployees;
+	@NotNull
+	private Long totalEmployees;
 	
 	@NotNull
 	private Long capitalInvested;

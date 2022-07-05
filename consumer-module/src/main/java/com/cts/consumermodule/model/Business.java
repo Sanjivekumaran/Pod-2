@@ -43,9 +43,9 @@ public class Business {
 	@Column(name="BusinessAge")
 	private Long businessAge;
 	
-	@NotBlank
+	@NotNull
 	@Column(name="TotalEmployees")
-	private String totalEmployees;
+	private Long totalEmployees;
 	
 	@NotNull
 	@Column(name="CapitalInvested")
@@ -56,7 +56,7 @@ public class Business {
 	private Long businessTurnover;
 
 	public Business(@NotNull Long consumerId, @NotNull String businessName, @NotNull String businessType,
-			@NotNull Long businessAge, @NotNull String totalEmployees, @NotNull Long capitalInvested,
+			@NotNull Long businessAge, @NotNull Long totalEmployees, @NotNull Long capitalInvested,
 			@NotNull Long businessTurnover) {
 		super();
 		this.consumerId = consumerId;

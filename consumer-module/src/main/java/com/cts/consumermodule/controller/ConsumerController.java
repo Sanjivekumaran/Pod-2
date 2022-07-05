@@ -50,6 +50,9 @@ public class ConsumerController {
 			if (consumerRepository.existsByPan(inputRequest.getPan())) {
 				return ResponseEntity.badRequest().body("Consumer already exists");
 			}
+			if(!consumerService.checkBusinessEligibility(inputRequest)) {
+				return  ResponseEntity.badRequest().body("Sorry! You are not eligible");
+			}
 			return consumerService.createConsumerBusiness(inputRequest);
 		} else {
 			return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
@@ -121,6 +124,9 @@ public class ConsumerController {
 			}
 			if (!businessRepository.existsById(inputRequest.getBusinessId())) {
 				return ResponseEntity.badRequest().body("Business doesnot exists");
+			}
+			if(!consumerService.checkPropertyEligibility(inputRequest)) {
+				return ResponseEntity.badRequest().body("Sorry! You are not Eligible");
 			}
 			return consumerService.createBusinessProperty(inputRequest);
 		} else {

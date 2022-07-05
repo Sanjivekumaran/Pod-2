@@ -53,7 +53,7 @@ public class ConsumerBusinessRequest {
 	@NotNull
 	private Long businessAge;
 	
-	@NotBlank
-	private String totalEmployees;
+	@NotNull
+	private Long totalEmployees;
 
 }

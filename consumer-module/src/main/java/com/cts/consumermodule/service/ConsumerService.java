@@ -1,8 +1,5 @@
 package com.cts.consumermodule.service;
 
-
-
-
 import java.util.Optional;
 
 import javax.validation.constraints.NotNull;
@@ -96,7 +93,7 @@ public class ConsumerService {
 
 	}
 	
-public ResponseEntity<?> updateConsumerBusiness(UpdateRequest updateRequest) {
+	public ResponseEntity<?> updateConsumerBusiness(UpdateRequest updateRequest) {
 		
 		Optional<Consumer> consumer = consumerRepository.findById(updateRequest.getConsumerId());
 		log.debug("{}",consumer.isPresent());
@@ -175,7 +172,7 @@ public ResponseEntity<?> updateConsumerBusiness(UpdateRequest updateRequest) {
 	}
 
 	/*Method to calculate value of a property*/
-	private Long calculatePropertyValue(@NotNull Long costOftheAsset, @NotNull Long salvageValue,
+	public Long calculatePropertyValue(@NotNull Long costOftheAsset, @NotNull Long salvageValue,
 			@NotNull Long usefulLifeofAsset) {
 		
 
@@ -198,6 +195,32 @@ public ResponseEntity<?> updateConsumerBusiness(UpdateRequest updateRequest) {
 
 	}
 	
+	public boolean checkBusinessEligibility(ConsumerBusinessRequest inputRequest) {
+		
+		boolean flag = false;
+		
+		if(inputRequest.getBusinessAge()>=3 || inputRequest.getTotalEmployees()>=50) {
+			flag = true;
+			log.debug("Check Value {}", flag);
+		}
+		
+		log.debug("Check Value {}", flag);
+		return flag;
+	}
+	
+	public boolean checkPropertyEligibility(BusinessInputRequest inputRequest) {
+		
+		boolean flag = false;
+		
+		if((inputRequest.getBuildingType().equalsIgnoreCase("own") && inputRequest.getBuildingAge()>=5) ||
+				(inputRequest.getBuildingType().equalsIgnoreCase("rent") && inputRequest.getBuildingAge()>=3)) {
+			flag = true;
+			log.debug("Check Value {}", flag);
+		}
+		
+		log.debug("Check Value {}", flag);
+		return flag;
+	}
 	
 	
 	
