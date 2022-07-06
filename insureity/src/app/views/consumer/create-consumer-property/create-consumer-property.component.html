@@ -1,6 +1,6 @@
 <app-card>
-    <div class="content">
-        <div class="container" *ngIf="!hasError" align="center">
+    <div class="content" align="center">
+        <div class="container" *ngIf="!hasError && response==null">
             <h2>Create Business Property</h2>
             <form [formGroup]="propertyForm" (ngSubmit)="onSubmit(propertyForm.value)" method="post">
                 <table>
@@ -173,7 +173,7 @@
             </form>
         </div>
 
-        <table style="border: 1px solid black;border-collapse: collapse;">
+        <table style="border: 0px solid black;border-collapse: collapse;">
             <div *ngIf="response!=null || errorMsg!=''">
 
                 <h6>Business Property Status:</h6>

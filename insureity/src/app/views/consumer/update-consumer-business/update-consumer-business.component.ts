@@ -87,12 +87,11 @@ export class UpdateConsumerBusinessComponent implements OnInit {
 
     this._consumerService.updateConsumerBusiness(consumerForm).subscribe(
       (data: any) => {
-        this.response =
-          'Successfully updated Consumer Business with Consumer ID: ' +
-          data.consumerId +
-          'and Business ID: ' +
-          data.businessId;
-        // this._router.navigate(['/']);
+        this.response = 'Successfully updated Consumer Business';
+        // 'Successfully updated Consumer Business with Consumer ID: ' +
+        // data.consumerId +
+        // 'and Business ID: ' +
+        // data.businessId;
       },
       (error: any) => {
         this.hasError = true;
