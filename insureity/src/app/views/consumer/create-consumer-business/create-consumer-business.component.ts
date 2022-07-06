@@ -33,7 +33,10 @@ export class CreateConsumerBusinessComponent implements OnInit {
   //Create required field validator for name
   myForm() {
     this.consumerForm = this._fb.group({
-      firstName: ['', Validators.required, Validators.minLength(3)],
+      firstName: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(3)]),
+      ],
       lastName: ['', Validators.required],
       email: ['', Validators.required],
       pan: ['', Validators.required],
@@ -71,19 +74,19 @@ export class CreateConsumerBusinessComponent implements OnInit {
   onSubmit(consumerForm: any): void {
     console.log(consumerForm);
 
-    if (!consumerForm.valid) {
-      this.errorMsg = 'Invalid consumer form';
-      return;
-    }
+    // if (!consumerForm.valid) {
+    //   this.errorMsg = 'Invalid consumer form';
+    //   return;
+    // }
     this._consumerService.addConsumerBusiness(consumerForm).subscribe(
       (data: any) => {
         console.log(data);
         if (data == 'Created')
-          this.response =
-            'Successfully created Consumer Business with Consumer ID: ' +
-            data.consumerId +
-            'and Business ID: ' +
-            data.businessId;
+          this.response = 'Successfully created Consumer Business';
+        // 'Successfully created Consumer Business with Consumer ID: ' +
+        // data.consumerId +
+        // 'and Business ID: ' +
+        // data.businessId;
         // this._router.navigate(['/']);
       },
       (error: HttpErrorResponse) => {

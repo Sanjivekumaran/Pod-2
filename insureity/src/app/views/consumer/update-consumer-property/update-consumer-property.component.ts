@@ -13,7 +13,7 @@ import { ConsumerService } from 'app/services/consumer.service';
 export class UpdateConsumerPropertyComponent implements OnInit {
   public hasError: boolean = false;
   public errorMsg: string = '';
-  public response: any = {};
+  public response: any;
   state: any = { consumerId: null, propertyId: null };
   constructor(
     private _consumerService: ConsumerService,
@@ -79,11 +79,11 @@ export class UpdateConsumerPropertyComponent implements OnInit {
     this._consumerService
       .updateBusinessProperty(consumerForm)
       .subscribe((data: any) => {
-        this.response =
-          'Successfully updated Business Property with Consumer ID: ' +
-          data.consumerId +
-          'and Business ID: ' +
-          data.businessId;
+        this.response = 'Successfully updated Business Property';
+          // 'Successfully updated Business Property with Consumer ID: ' +
+          // data.consumerId +
+          // 'and Business ID: ' +
+          // data.businessId;
         // this._router.navigate(['/']);
       });
   }

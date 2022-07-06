@@ -44,18 +44,18 @@ export class CreateConsumerPropertyComponent implements OnInit {
 
   onSubmit(consumerForm: Property): void {
     console.log(consumerForm);
-    if (!this.propertyForm.valid) {
-      this.errorMsg = 'Invalid input';
-      return;
-    }
+    // if (!this.propertyForm.valid) {
+    //   this.errorMsg = 'Invalid input';
+    //   return;
+    // }
 
     this._consumerService.addBusinessProperty(consumerForm).subscribe(
       (data: any) => {
-        this.response =
-          'Successfully created Business Property with Consumer ID: ' +
-          data.consumerId +
-          'and Business ID: ' +
-          data.businessId;
+        this.response ='Successfully created Business Property';
+          // 'Successfully created Business Property with Consumer ID: ' +
+          // data.consumerId +
+          // 'and Business ID: ' +
+          // data.businessId;
         // this._router.navigate(['/']);
       },
       (error: HttpErrorResponse) => {

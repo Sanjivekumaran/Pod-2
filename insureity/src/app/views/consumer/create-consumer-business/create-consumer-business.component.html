@@ -12,6 +12,9 @@
                         <div *ngIf="consumerForm.controls['firstName'].errors!['required']">
                             First Name is required.
                         </div>
+                        <div *ngIf="consumerForm.controls['firstName'].errors!['minlength']">
+                            First Name should be min length 3.
+                        </div>
                     </div>
                 </div>
                 <div>

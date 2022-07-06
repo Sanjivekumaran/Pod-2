@@ -27,8 +27,10 @@ export class IssuePolicyComponent implements OnInit {
 
   public onClickIssuePolicy(issuePolicyForm: any): void {
     // todo: check
+    console.log(issuePolicyForm);
     this._policyService.issuePolicy(issuePolicyForm).subscribe(
       (data: any) => {
+        console.log(data);
         this.policyResponse = data.message;
       },
       (error: any) => {

@@ -29,11 +29,11 @@ export class CreatePolicyComponent implements OnInit {
 
     this._policyService.addPolicy(policyForm).subscribe(
       (data: any) => {
-        this.response =
-          'Successfully created Business Property with Consumer ID: ' +
-          data.consumerId +
-          'and Accepted Quote: ' +
-          data.acceptedQuotes;
+        this.response ='Successfully created Business Property';
+          // 'Successfully created Business Property with Consumer ID: ' +
+          // data.consumerId +
+          // 'and Accepted Quote: ' +
+          // data.acceptedQuotes;
         // this._router.navigate(['/']);
       },
       (error: HttpErrorResponse) => {

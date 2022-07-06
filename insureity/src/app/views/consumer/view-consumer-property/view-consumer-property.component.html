@@ -55,12 +55,12 @@
                         <span>{{response.buildingAge}}</span>
                     </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td>Property Value:</td>
                     <td>
                         <span>{{response.propertyValue}}</span>
                     </td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td>Cost of the Asset:</td>
                     <td>
@@ -86,10 +86,11 @@
             <table style="border: 0px solid black;border-collapse: collapse;">
                 <tr>
                     <th>Status:</th>
-                    <th>
-                        {{errorMsg}}
-                        <!-- <span>{{response | json}}</span> -->
-                    </th>
+                </tr>
+                <tr>
+                    <td><span *ngIf="!hasError" class="text-success">{{response}}</span>
+                        <span *ngIf="hasError" class="text-danger">{{errorMsg}}</span>
+                    </td>
                 </tr>
             </table>
         </div>

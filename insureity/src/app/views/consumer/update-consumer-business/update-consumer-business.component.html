@@ -1,6 +1,6 @@
 <app-card>
     <div class="content" align="center">
-        <div class="container" *ngIf="!hasError">
+        <div class="container" *ngIf="!hasError && response==null">
             <h2>Update Consumer Business</h2>
             <form [formGroup]="consumerForm" (ngSubmit)="onSubmit(consumerForm.value)" method="post">
                 <div class="form-group">

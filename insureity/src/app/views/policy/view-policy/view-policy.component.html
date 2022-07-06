@@ -114,10 +114,12 @@
         <div align="center" *ngIf="hasError">
             <table style="border: 0px solid black;border-collapse: collapse;">
                 <tr>
-                    <th>Status:</th>
-                    <th><span *ngIf="!hasError" class="text-success">{{response}}</span>
+                    <td>Status:</td>
+                </tr>
+                <tr>
+                    <td><span *ngIf="!hasError" class="text-success">{{response}}</span>
                         <span *ngIf="hasError" class="text-danger">{{errorMsg}}</span>
-                    </th>
+                    </td>
                 </tr>
             </table>
         </div>

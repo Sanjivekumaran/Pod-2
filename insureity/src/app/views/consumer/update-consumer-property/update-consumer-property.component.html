@@ -1,6 +1,6 @@
 <app-card>
     <div class="content" align="center">
-        <div class="container" *ngIf="!hasError">
+        <div class="container" *ngIf="!hasError  && response==null">
             <h2>Update Business Property</h2>
 
             <form [formGroup]="propertyForm" (ngSubmit)="onSubmit(propertyForm.value)" method="post">
