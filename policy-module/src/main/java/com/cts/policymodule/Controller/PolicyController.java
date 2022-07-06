@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200/")
 public class PolicyController {
 
     @Autowired
@@ -54,7 +55,7 @@ public class PolicyController {
 	            return new MessageResponse("Sorry!!, No Consumer Found!!");
 	        }
 	    	if (!consumerPolicyRepository.existsByBusinessId(issuePolicyRequest.getBusinessId())) {
-	            return new MessageResponse("Sorry!!, No Consumer Found!!");
+	            return new MessageResponse("Sorry!!, No Business Found!!");
 	        }
 	        if (!policyMasterRepository.existsByPolicyId(issuePolicyRequest.getPolicyId())) {
 	            return new MessageResponse("Sorry!!, No Policy Found!!");
@@ -80,8 +81,8 @@ public class PolicyController {
     @GetMapping("/viewPolicy")
     public ResponseEntity<?> viewPolicy(@RequestHeader String Authorization,@Valid @RequestParam Long consumerId, @RequestParam String policyId) throws ConsumerPolicyNotFoundException, PolicyNotFoundException {
     	if(policyService.isSessionValid(Authorization)) {
-	    	if(!consumerPolicyRepository.existsByConsumerId(consumerId)) {
-	        	return ResponseEntity.badRequest().body(new MessageResponse("Sorry!!, No Consumer Found!!"));
+	    	if(!consumerPolicyRepository.existsByConsumerId(consumerId) || !consumerPolicyRepository.existsByPolicyId(policyId)) {
+	        	return ResponseEntity.badRequest().body(new MessageResponse("Sorry!!, No Consumer/Policy Found!!"));
 	        }
 	        ConsumerPolicy consumerPolicy = consumerPolicyRepository.findByConsumerId(consumerId);
 	    	if (!consumerPolicy.getPolicyId().equals(policyId)) {

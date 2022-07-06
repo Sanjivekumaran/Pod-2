@@ -18,4 +18,6 @@ public interface ConsumerPolicyRepository extends JpaRepository<ConsumerPolicy, 
     boolean existsByConsumerId(Long consumerId);
 
 	boolean existsByBusinessId(long businessId);
+	
+	boolean existsByPolicyId(String policyId);
 }

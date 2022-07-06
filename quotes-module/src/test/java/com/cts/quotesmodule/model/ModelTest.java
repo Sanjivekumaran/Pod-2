@@ -8,9 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ModelTest {
 	
+	private QuotesMaster qm; 
 	@Test
 	public void Quotemaster() {
-		QuotesMaster qm=new QuotesMaster(1,1L,1L,"1","1");
+		qm=new QuotesMaster(1,1L,1L,"1","1");
 		assertEquals(1,qm.getId());
 		assertEquals(1L,qm.getBusinessValue());
 		assertEquals(1L,qm.getPropertyValue());
@@ -20,7 +21,7 @@ class ModelTest {
 	
 	@Test
 	public void quote() {
-		QuotesMaster qm=new QuotesMaster();
+		qm=new QuotesMaster();
 		qm.setId(1);
 		qm.setBusinessValue(1L);
 		qm.setPropertyType("1");

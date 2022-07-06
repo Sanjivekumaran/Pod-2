@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "http://localhost:4200/")
 public class AuthController {
 
 	@Autowired
@@ -28,7 +29,7 @@ public class AuthController {
 	@Autowired
 	private MyUserDetailsService userDetailsService;
 
-	@CrossOrigin(origins = "http://localhost:4200/")
+	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UserModel userlogincredentials) {
 		log.info("Start {}", this.getClass().getSimpleName());
