@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,8 @@ import com.cts.consumermodule.service.ConsumerService;
 @RestController
 public class ConsumerController {
 
+	private Logger log = LoggerFactory.getLogger(ConsumerController.class);
+	
 	@Autowired
 	private ConsumerService consumerService;
 
@@ -43,6 +47,9 @@ public class ConsumerController {
 	@PostMapping("/createConsumerBusiness")
 	public ResponseEntity<?> createConsumerBusiness(@RequestHeader String Authorization,
 			@RequestBody ConsumerBusinessRequest inputRequest) {
+		
+		log.info("Start createConsumerBusinessController");
+		
 		if (consumerService.isSessionValid(Authorization)) {
 			if (businessRepository.existsByBusinessName(inputRequest.getBusinessName())) {
 				return ResponseEntity.badRequest().body("Business already exists");
