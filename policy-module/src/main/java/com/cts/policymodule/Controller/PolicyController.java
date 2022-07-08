@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200/")
 public class PolicyController {
 
     @Autowired
@@ -32,48 +33,47 @@ public class PolicyController {
     private ConsumerPolicyRepository consumerPolicyRepository;
 
     @PostMapping("/createPolicy")
-    public MessageResponse createPolicy(@RequestHeader String Authorization,@Valid @RequestBody CreatePolicyRequest createPolicyRequest) throws ConsumerBusinessNotFoundException {
-    	MessageResponse messageResponse=new MessageResponse("ConsumerId Already Exists");
+    public ResponseEntity<?> createPolicy(@RequestHeader String Authorization,@Valid @RequestBody CreatePolicyRequest createPolicyRequest) throws ConsumerBusinessNotFoundException {
+    	MessageResponse messageResponse=new MessageResponse("Policy already created");
     	if(policyService.isSessionValid(Authorization)) {
 	    	if(consumerPolicyRepository.existsByConsumerId(createPolicyRequest.getConsumerId())) {
-	        	return messageResponse;
+	        	return ResponseEntity.badRequest().body(messageResponse);
 	        }
 	    	messageResponse = policyService.createPolicy(Authorization,createPolicyRequest);
-	        return messageResponse;
+	        return ResponseEntity.ok(messageResponse);
     	}
     	else {
-    		messageResponse = new MessageResponse("Authorization invalid");
-    		return messageResponse;
+    		return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
     	}
     }
 
     @PostMapping("/issuePolicy")
-    public MessageResponse issuePolicy(@RequestHeader String Authorization,@Valid @RequestBody IssuePolicyRequest issuePolicyRequest) throws ConsumerPolicyNotFoundException, PolicyNotFoundException {
+    public ResponseEntity<?> issuePolicy(@RequestHeader String Authorization,@Valid @RequestBody IssuePolicyRequest issuePolicyRequest) throws ConsumerPolicyNotFoundException, PolicyNotFoundException {
     	if(policyService.isSessionValid(Authorization)) {
 	    	if (!consumerPolicyRepository.existsByConsumerId(issuePolicyRequest.getConsumerId())) {
-	            return new MessageResponse("Sorry!!, No Consumer Found!!");
+	            return ResponseEntity.badRequest().body(new MessageResponse("Sorry!!, No Consumer Found!!"));
 	        }
 	    	if (!consumerPolicyRepository.existsByBusinessId(issuePolicyRequest.getBusinessId())) {
-	            return new MessageResponse("Sorry!!, No Consumer Found!!");
+	            return ResponseEntity.badRequest().body(new MessageResponse("Sorry!!, No Business Found!!"));
 	        }
 	        if (!policyMasterRepository.existsByPolicyId(issuePolicyRequest.getPolicyId())) {
-	            return new MessageResponse("Sorry!!, No Policy Found!!");
+	            return ResponseEntity.badRequest().body(new MessageResponse("Sorry!!, No Policy Found!!"));
 	        }
 	        ConsumerPolicy consumerPolicy=consumerPolicyRepository.findByConsumerId(issuePolicyRequest.getConsumerId());
 	        if(consumerPolicy.getPolicyStatus().equals("Issued")) {
-	        	return new MessageResponse("Policy already issued");
+	        	return ResponseEntity.badRequest().body(new MessageResponse("Policy already issued"));
 	        }
 	        if (!(issuePolicyRequest.getPaymentDetails().equals("Success"))) {
-	            return new MessageResponse("Sorry!!, Payment Failed!! Try Again");
+	            return ResponseEntity.badRequest().body(new MessageResponse("Sorry!!, Payment Failed!! Try Again"));
 	        }
 	        if (!(issuePolicyRequest.getAcceptanceStatus().equals("Accepted"))) {
-	            return new MessageResponse("Sorry!!, Accept Failed !! Try Again");
+	            return ResponseEntity.badRequest().body(new MessageResponse("Sorry!!, Accept Failed !! Try Again"));
 	        }
 	        MessageResponse messageResponse = policyService.issuePolicy(issuePolicyRequest);
-	        return messageResponse;
+	        return ResponseEntity.ok(messageResponse);
     	}
     	else {
-    		return new MessageResponse("Authorization invalid");
+    		return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
     	}
     }
  
@@ -99,7 +99,10 @@ public class PolicyController {
     public ResponseEntity<?> getQuotes(@RequestHeader String Authorization,@Valid @RequestParam Long businessValue, @RequestParam Long propertyValue, @RequestParam String propertyType) {
     	if(policyService.isSessionValid(Authorization)) {
 	    	QuoteDetailsResponse quoteDetailsResponse = policyService.getQuotes(Authorization,businessValue, propertyValue, propertyType);
-	        return ResponseEntity.ok(quoteDetailsResponse);
+	        if(quoteDetailsResponse.getQuotes().equals("No Quotes, Contact Insurance Provider")) {
+	        	return ResponseEntity.badRequest().body(new MessageResponse("No Quotes, Contact Insurance Provider"));
+	        }
+	    	return ResponseEntity.ok(quoteDetailsResponse);
     	}
     	else {
     		return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);

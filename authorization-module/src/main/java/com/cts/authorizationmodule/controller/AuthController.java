@@ -16,7 +16,11 @@ import com.cts.authorizationmodule.model.UserModel;
 import com.cts.authorizationmodule.service.JwtUtil;
 import com.cts.authorizationmodule.service.MyUserDetailsService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
+@CrossOrigin(origins = "http://localhost:4200/")
 public class AuthController {
 
 	@Autowired
@@ -25,9 +29,10 @@ public class AuthController {
 	@Autowired
 	private MyUserDetailsService userDetailsService;
 
-	@CrossOrigin(origins = "http://localhost:4200/")
+	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UserModel userlogincredentials) {
+		log.info("Start {}", this.getClass().getSimpleName());
 		final UserDetails userdetails = userDetailsService.loadUserByUsername(userlogincredentials.getId());
 		String uid = "";
 		String generateToken = "";
@@ -35,23 +40,24 @@ public class AuthController {
 			uid = userlogincredentials.getId();
 			generateToken = jwtutil.generateToken(userdetails);
 			System.out.println("Jwt" + generateToken);
+			log.info("End {}", this.getClass().getSimpleName());
+			System.out.println("Jwt" + generateToken);
 			return new ResponseEntity<>(new UserModel(uid, null, null, generateToken), HttpStatus.OK);
 		} else {
+			log.info("Not Accessible - End {} ", this.getClass().getSimpleName());
 			return new ResponseEntity<>("Not Accesible", HttpStatus.FORBIDDEN);
 		}
 	}
 
 	@GetMapping("/validate")
 	public ResponseEntity<?> getValidity(@RequestHeader("Authorization") String token) {
-
+		log.info("Start {}", this.getClass().getSimpleName());
 		AuthResponse res = new AuthResponse();
 		if (token == null) {
 			res.setValid(false);
-
+			log.info("Null Token - End {}", this.getClass().getSimpleName());
 			return new ResponseEntity<>(res, HttpStatus.FORBIDDEN);
 		} else {
-//			System.out.println("/////////////////////////////////////////////////////////////////////////////////////");
-//			System.out.println(token);
 			if (token.contains("Bearer")) {
 				token = token.substring(7);
 			}
@@ -61,10 +67,12 @@ public class AuthController {
 				res.setName("Agent");
 			} else {
 				res.setValid(false);
+				log.info("Invalid Token - End {} ", this.getClass().getSimpleName());
 				return new ResponseEntity<>(res, HttpStatus.FORBIDDEN);
 
 			}
 		}
+		log.info(" Token accepted - End {}", this.getClass().getSimpleName());
 		return new ResponseEntity<>(res, HttpStatus.OK);
 
 	}

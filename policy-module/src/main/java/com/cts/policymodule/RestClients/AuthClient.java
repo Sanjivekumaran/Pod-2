@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.cts.policymodule.Payload.Response.AuthResponse;
 
-@FeignClient(name="authorization-service")
+@FeignClient(name="authorization-service", url="${AUTHORIZATION_SERVICE:http://localhost:8080}")
 public interface AuthClient {
 
 	@GetMapping(value="/validate")

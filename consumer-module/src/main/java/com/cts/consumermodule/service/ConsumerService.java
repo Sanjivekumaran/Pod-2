@@ -55,6 +55,9 @@ public class ConsumerService {
 	}
 	
 	public ResponseEntity<?> createConsumerBusiness(ConsumerBusinessRequest inputRequest) {
+		
+		log.info("Start CreateConsumerBusinessService");
+		
 		Consumer consumer = new Consumer(inputRequest.getFirstName(),inputRequest.getLastName(),
 				inputRequest.getDob(),inputRequest.getEmail(),inputRequest.getPan(),inputRequest.getBusinessName(),
 				inputRequest.getValidity(),inputRequest.getAgentName(),inputRequest.getAgentId());
@@ -68,33 +71,39 @@ public class ConsumerService {
 		Business businessSavedObj = businessRepository.save(business);
 		
 		log.debug("Business Obj {}", businessSavedObj);
+		log.info("End CreateConsumerBusinessService");
 		
 		return  ResponseEntity.ok("Created");
-		
 		
 	}
 	
 	public ConsumerBusinessResponse viewConsumerBusiness(Long consumerid) throws ConsumerBusinessNotFoundException {
+		
 		log.info("Start viewConsumerBusinessService");
+		
 		Optional<Consumer> consumer = Optional.ofNullable(consumerRepository.findById(consumerid).orElseThrow(() -> new ConsumerBusinessNotFoundException()));
 		log.debug("Consumer List : {}", consumer);
 		Consumer consumers = consumer.get();
 		log.debug("Consumer : {}", consumers);
 		Business business = businessRepository.findByConsumerId(consumerid);
 		log.debug("Business : {}", business);
+		
 		ConsumerBusinessResponse consumerBusinessDetails = new ConsumerBusinessResponse(consumers.getFirstName(),consumers.getLastName(),
 				consumers.getDob(),consumers.getEmail(),consumers.getPan(),consumers.getBusinessName(),
 				consumers.getValidity(),consumers.getAgentName(),consumers.getAgentId(),business.getConsumerId(),
 				business.getBusinessType(),business.getBusinessAge(),business.getTotalEmployees(),business.getCapitalInvested(),
 				business.getBusinessTurnover(),business.getId());
+		
 		log.debug("ConsumerBusinessDetails : {}", consumerBusinessDetails);
 		log.info("End viewConsumerBusinessService");
+		
 		return consumerBusinessDetails;
 
 	}
 	
 	public ResponseEntity<?> updateConsumerBusiness(UpdateRequest updateRequest) {
 		
+		log.info("Start updateConsumerBusinessService");
 		Optional<Consumer> consumer = consumerRepository.findById(updateRequest.getConsumerId());
 		log.debug("{}",consumer.isPresent());
 		Consumer consumer_info = consumer.get();
@@ -124,12 +133,16 @@ public class ConsumerService {
 		business_info.setTotalEmployees(updateRequest.getTotalEmployees());
 		
 		Business businessUpdateObj = businessRepository.save(business_info);
+		log.info("End updateConsumerBusinessService");
 		
 		return ResponseEntity.ok("success");
+		
 	}
 	
 	/*Creating property by accepting the inputRequest as RequestBody*/
 	public ResponseEntity<?> createBusinessProperty(BusinessInputRequest inputRequest) {
+		
+		log.info("Start createBusinessPropertyService");
 		
 		Long propertyValue = calculatePropertyValue(inputRequest.getCostOftheAsset(),inputRequest.getSalvageValue(),
 				inputRequest.getUsefulLifeofAsset());
@@ -141,6 +154,7 @@ public class ConsumerService {
 		Property propertySavedObj = propertyRepository.save(property);
 		
 		log.debug("Property Saved {}", propertySavedObj);
+		log.info("End createBusinessPropertyService");
 	
 		return ResponseEntity.ok("success");
 		
@@ -148,6 +162,8 @@ public class ConsumerService {
 
 	/*Updating property by accepting the updateRequest as RequestBody*/
 	public ResponseEntity<?> updateBusinessProperty(BusinessUpdateRequest updateRequest) {
+		
+		log.info("start updateBusinessPropertyService");
 		
 		Long propertyValue = calculatePropertyValue(updateRequest.getCostOftheAsset(),updateRequest.getSalvageValue(),
 				updateRequest.getUsefulLifeofAsset());
@@ -166,6 +182,7 @@ public class ConsumerService {
 		Property propertySavedObj = propertyRepository.save(property);
 		
 		log.debug("Property Updated Obj {} ", propertySavedObj);
+		log.info("End updateBusinessPropertyService");
 		
 		return ResponseEntity.ok("Update Property Success");
 		
@@ -175,6 +192,7 @@ public class ConsumerService {
 	public Long calculatePropertyValue(@NotNull Long costOftheAsset, @NotNull Long salvageValue,
 			@NotNull Long usefulLifeofAsset) {
 		
+		log.info("Start calculatePropertyValue method");
 
 		Double x_ratio = (double) ((costOftheAsset - salvageValue) / usefulLifeofAsset);
 		log.debug("x_ratio : {}", x_ratio);
@@ -191,13 +209,18 @@ public class ConsumerService {
 		Double propertyvalue = range_diff * sat;
 		log.debug("propertyvalue  : {}", propertyvalue);
 		log.info("End calPropertyValue");
+		
+		log.info("End calculatePropertyValue method");
+		
 		return (long) Math.abs(Math.round(propertyvalue));
 
 	}
 	
-	public boolean checkBusinessEligibility(ConsumerBusinessRequest inputRequest) {
+	public Boolean checkBusinessEligibility(ConsumerBusinessRequest inputRequest) {
 		
-		boolean flag = false;
+		log.info("start checkBusienssEligibility method");
+		
+		Boolean flag = false;
 		
 		if(inputRequest.getBusinessAge()>=3 || inputRequest.getTotalEmployees()>=50) {
 			flag = true;
@@ -205,12 +228,17 @@ public class ConsumerService {
 		}
 		
 		log.debug("Check Value {}", flag);
+		log.info("End checkBusinessEligibility method");
+		
 		return flag;
+		
 	}
 	
-	public boolean checkPropertyEligibility(BusinessInputRequest inputRequest) {
+	public Boolean checkPropertyEligibility(BusinessInputRequest inputRequest) {
 		
-		boolean flag = false;
+		log.info("Start checkPropertyEligibility method");
+		
+		Boolean flag = false;
 		
 		if((inputRequest.getBuildingType().equalsIgnoreCase("own") && inputRequest.getBuildingAge()>=5) ||
 				(inputRequest.getBuildingType().equalsIgnoreCase("rent") && inputRequest.getBuildingAge()>=3)) {
@@ -219,7 +247,10 @@ public class ConsumerService {
 		}
 		
 		log.debug("Check Value {}", flag);
+		log.info("End checkPropertyEligibility method");
+		
 		return flag;
+		
 	}
 	
 	
