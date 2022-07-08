@@ -12,11 +12,8 @@
                         <div *ngIf="consumerForm.controls['firstName'].errors!['required']">
                             First Name is required.
                         </div>
-                        <div *ngIf="consumerForm.controls['firstName'].errors!['minlength']">
-                            First Name should be min length 3.
-                        </div>
                         <div *ngIf="consumerForm.controls['firstName'].errors!['pattern']">
-                            Invalid first name
+                            First Name should be min length 3.
                         </div>
                     </div>
                 </div>
@@ -29,8 +26,8 @@
                         <div *ngIf="consumerForm.controls['lastName'].errors!['required']">
                             Last Name is required.
                         </div>
-                        <div *ngIf="consumerForm.controls['lastName'].errors!['pattern']">
-                            Invalid last name
+                        <div *ngIf="consumerForm.controls['firstName'].errors!['pattern']">
+                            Last Name should be min length 3.
                         </div>
                     </div>
                 </div>
@@ -43,6 +40,9 @@
                         <div *ngIf="consumerForm.controls['dob'].errors!['required']">
                             DOB is required.
                         </div>
+                        <div *ngIf="consumerForm.controls['dob'].errors!['pattern']">
+                            DOB must be in dd/mm/yyyy format.
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -54,6 +54,9 @@
                         <div *ngIf="consumerForm.controls['pan'].errors!['required']">
                             Pan is required.
                         </div>
+                        <div *ngIf="consumerForm.controls['pan'].errors!['pattern']">
+                            Pan is not valid.
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -64,22 +67,19 @@
                         <div *ngIf="consumerForm.controls['email'].errors!['required']">
                             Email is required.
                         </div>
-                        <div *ngIf="consumerForm.controls['email'].errors!['pattern']">
-                            Invalid Email
+                        <div *ngIf="consumerForm.controls['email'].errors!['email']">
+                            Email is not valid.
                         </div>
                     </div>
                 </div>
                 <div>
                     <label>Business Name:</label>
                     <input formControlName="businessName" id="validity" type="text" class="form-control"
-                        placeholder="Business Name" />
+                        placeholder="Validity" />
                     <div *ngIf="consumerForm.controls['businessName'].invalid && consumerForm.controls['businessName'].touched"
                         class="alert alert-danger">
                         <div *ngIf="consumerForm.controls['businessName'].errors!['required']">
                             Business Name is required.
-                        </div>
-                        <div *ngIf="consumerForm.controls['businessName'].errors!['pattern']">
-                            Invalid businessName
                         </div>
                     </div>
                 </div>
@@ -92,9 +92,6 @@
                         <div *ngIf="consumerForm.controls['businessType'].errors!['required']">
                             Business Type is required.
                         </div>
-                        <div *ngIf="consumerForm.controls['businessType'].errors!['pattern']">
-                            Invalid businessType
-                        </div>
                     </div>
                 </div>
                 <div>
@@ -106,6 +103,9 @@
                         <div *ngIf="consumerForm.controls['validity'].errors!['required']">
                             Validity is required.
                         </div>
+                        <div *ngIf="consumerForm.controls['validity'].errors!['maxLength']">
+                            Validity is not valid.
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -116,6 +116,9 @@
                         class="alert alert-danger">
                         <div *ngIf="consumerForm.controls['agentId'].errors!['required']">
                             Agent Id is required.
+                        </div>
+                        <div *ngIf="consumerForm.controls['agentId'].errors!['pattern']">
+                            Agent Id is not valid.
                         </div>
                     </div>
                 </div>
@@ -129,7 +132,7 @@
                             Agent Name is required.
                         </div>
                         <div *ngIf="consumerForm.controls['agentName'].errors!['pattern']">
-                            Invalid agentName
+                            Agent Name is not valid.
                         </div>
                     </div>
                 </div>
@@ -142,6 +145,9 @@
                         <div *ngIf="consumerForm.controls['businessTurnover'].errors!['required']">
                             Business Turnover is required.
                         </div>
+                        <div *ngIf="consumerForm.controls['businessTurnover'].errors!['pattern']">
+                            Business Turnover is not valid.
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -152,6 +158,9 @@
                         class="alert alert-danger">
                         <div *ngIf="consumerForm.controls['capitalInvested'].errors!['required']">
                             Capital Invested is required.
+                        </div>
+                        <div *ngIf="consumerForm.controls['capitalInvested'].errors!['pattern']">
+                            Capital Invested is not valid.
                         </div>
                     </div>
                 </div>
@@ -165,7 +174,7 @@
                             Total Employees is required.
                         </div>
                         <div *ngIf="consumerForm.controls['totalEmployees'].errors!['pattern']">
-                            Total Employees must be number.
+                            Total Employees is not valid.
                         </div>
                     </div>
                 </div>
@@ -178,7 +187,9 @@
                         <div *ngIf="consumerForm.controls['businessAge'].errors!['required']">
                             Business Age is required.
                         </div>
-            
+                        <div *ngIf="consumerForm.controls['businessAge'].errors!['pattern']">
+                            Business Age is not valid.
+                        </div>
                     </div>
                 </div>
                 <div align="center">
@@ -186,7 +197,6 @@
                 </div>
             </form>
         </div>
-        <br>
         <table style="border: 0px solid black;border-collapse: collapse;">
             <div *ngIf="response!=null || errorMsg!=''">
 
@@ -195,7 +205,10 @@
                     <span class="text-success">{{response}}</span>
                     <span class="text-danger">{{errorMsg}}</span>
                 </h6>
-
+                <div class="btn-group mt-3" role="group">
+                    <button type="button" class="btn btn-primary" routerLink="/home">Home</button>
+                    <!-- <button type="button" class="btn btn-primary" routerLink="../">Go Back</button> -->
+                </div>
             </div>
         </table>
     </div>

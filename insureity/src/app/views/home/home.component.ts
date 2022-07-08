@@ -131,6 +131,8 @@ export class HomeComponent implements OnInit {
 
   // quotes function
   public onClickViewQuotes(quotesForm: any): void {
+    this.hasError = false;
+
     if (
       quotesForm.businessValue == null ||
       quotesForm.propertyValue == null ||
@@ -153,9 +155,11 @@ export class HomeComponent implements OnInit {
         },
         (error: any) => {
           this.hasError = true;
-          if (error.error.message != null) this.errorMsg = error.error.message;
-          else this.errorMsg = error.error;
           console.error(error);
+          if (error.error.error != null) this.errorMsg = error.error.error;
+          else if (error.error.message != null)
+            this.errorMsg = error.error.message;
+          else this.errorMsg = error.error;
         }
       );
   }
