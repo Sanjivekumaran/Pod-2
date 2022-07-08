@@ -29,16 +29,70 @@ export class CreateConsumerPropertyComponent implements OnInit {
 
   ngOnInit(): void {
     this.propertyForm = this.fb.group({
-      businessId: ['', Validators.required],
-      consumerId: ['', Validators.required],
-      buildingSqFt: ['', Validators.required],
-      buildingType: ['', Validators.required],
-      buildingStoreys: ['', Validators.required],
-      buildingAge: ['', Validators.required],
-      propertyValue: ['', Validators.required],
-      costOftheAsset: ['', Validators.required],
-      salvageValue: ['', Validators.required],
-      usefulLifeofAsset: ['', Validators.required],
+      businessId: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      consumerId: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      buildingSqFt: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      buildingType: ['', Validators.compose([Validators.required])],
+      buildingStoreys: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      buildingAge: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      propertyValue: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      costOftheAsset: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      salvageValue: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      usefulLifeofAsset: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
     });
   }
 
@@ -51,11 +105,11 @@ export class CreateConsumerPropertyComponent implements OnInit {
 
     this._consumerService.addBusinessProperty(consumerForm).subscribe(
       (data: any) => {
-        this.response ='Successfully created Business Property';
-          // 'Successfully created Business Property with Consumer ID: ' +
-          // data.consumerId +
-          // 'and Business ID: ' +
-          // data.businessId;
+        this.response = 'Successfully created Business Property';
+        // 'Successfully created Business Property with Consumer ID: ' +
+        // data.consumerId +
+        // 'and Business ID: ' +
+        // data.businessId;
         // this._router.navigate(['/']);
       },
       (error: HttpErrorResponse) => {

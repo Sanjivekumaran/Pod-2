@@ -35,21 +35,82 @@ export class CreateConsumerBusinessComponent implements OnInit {
     this.consumerForm = this._fb.group({
       firstName: [
         '',
-        Validators.compose([Validators.required, Validators.minLength(3)]),
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[A-Z+a-z ]{3,40}$'),
+        ]),
       ],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      pan: ['', Validators.required],
-      dob: ['', Validators.required],
+      lastName: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[A-Z+a-z ]{3,40}$'),
+        ]),
+      ],
+      email: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,30}$'),
+        ]),
+      ],
+      pan: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}'),
+        ]),
+      ],
+      dob: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}'),
+        ]),
+      ],
       businessName: ['', Validators.required],
       businessType: ['', Validators.required],
       capitalInvested: ['', Validators.required],
-      validity: ['', Validators.required],
-      agentId: ['', Validators.required],
-      agentName: ['', Validators.required],
-      businessTurnover: ['', Validators.required],
-      businessAge: ['', Validators.required],
-      totalEmployees: ['', Validators.required],
+      validity: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(2)]),
+      ],
+      agentId: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      agentName: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[A-Z+a-z ]{3,40}$'),
+        ]),
+      ],
+      businessTurnover: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
+      businessAge: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,3}'),
+        ]),
+      ],
+      totalEmployees: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]{1,4}'),
+        ]),
+      ],
     });
   }
   ngOnInit(): void {
