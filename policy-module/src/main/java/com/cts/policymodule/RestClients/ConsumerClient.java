@@ -1,5 +1,6 @@
 package com.cts.policymodule.RestClients;
 
+import com.cts.policymodule.Exception.ConsumerBusinessNotFoundException;
 import com.cts.policymodule.Payload.Response.ConsumerBusinessDetails;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,5 +14,5 @@ import javax.validation.Valid;
 @FeignClient(name = "consumer-service", url = "${CONSUMER_SERVICE:http://localhost:8133}")
 public interface ConsumerClient {
     @GetMapping("/viewConsumerBusiness")
-    public ConsumerBusinessDetails viewConsumerBusiness(@RequestHeader String Authorization,@Valid @RequestParam Long consumerId);
+    public ConsumerBusinessDetails viewConsumerBusiness(@RequestHeader String Authorization,@Valid @RequestParam Long consumerId) throws ConsumerBusinessNotFoundException;
 }

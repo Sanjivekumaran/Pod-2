@@ -83,7 +83,7 @@ class PolicyModuleServiceTest {
 	@Test
 	public void issuePolicySuccess() throws ConsumerPolicyNotFoundException, PolicyNotFoundException {
         MessageResponse mr=new MessageResponse();
-        mr.setMessage("Policy has Issued to PolicyConsumer Id : " + 1 + " .Thank You Very Much!!");
+        mr.setMessage("Policy has been issued to Policy Consumer Id : 1 .Thank You Very Much!!");
 		PolicyMaster pm = new PolicyMaster((long)1,"test","test","test","test","test",(long)1,(long)1,"test","test");
         ConsumerPolicy cp= new ConsumerPolicy((long)1,"test",(long)1,(long)1,"test","test","test","test",(long)1,(long)1,"test","test","test","test","test","test","test","test","test");
 		IssuePolicyRequest ipr = new IssuePolicyRequest("test",(long)1,(long)1,"test","test");

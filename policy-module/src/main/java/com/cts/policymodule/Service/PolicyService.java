@@ -71,17 +71,22 @@ public class PolicyService {
         return policyDetailsResponse;
     }
 
-    public MessageResponse createPolicy(String Authorization, CreatePolicyRequest createPolicyRequest)
-            throws ConsumerBusinessNotFoundException {
-        ConsumerBusinessDetails consumerBusinessDetails = getConsumerBusiness(Authorization,
+    public MessageResponse createPolicy(String Authorization, CreatePolicyRequest createPolicyRequest){
+    	ConsumerBusinessDetails consumerBusinessDetails=new ConsumerBusinessDetails();
+    	try {
+        consumerBusinessDetails = getConsumerBusiness(Authorization,
                 createPolicyRequest.getConsumerId());
+    	}
+    	catch(ConsumerBusinessNotFoundException e){
+    		
+    	}
         if (consumerBusinessDetails == null) {
-            return new MessageResponse("No Consumer Business Found !!");
+            return new MessageResponse("No Consumer Business Found!!");
         }
         ConsumerPolicy consumerPolicy = new ConsumerPolicy(consumerBusinessDetails.getConsumerId(),
                 consumerBusinessDetails.getBusinessId(), "Initiated", createPolicyRequest.getAcceptedQuotes());
         ConsumerPolicy consumerPolicySave = consumerPolicyRepository.save(consumerPolicy);
-        return new MessageResponse("Policy Has been Created with Policy Consumer Id : " + consumerPolicySave.getId()
+        return new MessageResponse("Policy has been created with Policy Consumer Id : " + consumerPolicySave.getId()
                 + " .Thank You Very Much!!");
     }
 
@@ -137,7 +142,7 @@ public class PolicyService {
         consumerPolicy.setCoveredSum(policyMaster.getAssuredSum());
         ConsumerPolicy consumerPolicySave = consumerPolicyRepository.save(consumerPolicy);
         return new MessageResponse(
-                "Policy has Issued to PolicyConsumer Id : " + consumerPolicySave.getId() + " .Thank You Very Much!!");
+                "Policy has been issued to Policy Consumer Id : " + consumerPolicySave.getId() + " .Thank You Very Much!!");
     }
 
 }

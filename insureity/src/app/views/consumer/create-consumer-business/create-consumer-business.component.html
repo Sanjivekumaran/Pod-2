@@ -15,6 +15,9 @@
                         <div *ngIf="consumerForm.controls['firstName'].errors!['minlength']">
                             First Name should be min length 3.
                         </div>
+                        <div *ngIf="consumerForm.controls['firstName'].errors!['pattern']">
+                            Invalid first name
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -25,6 +28,9 @@
                         class="alert alert-danger">
                         <div *ngIf="consumerForm.controls['lastName'].errors!['required']">
                             Last Name is required.
+                        </div>
+                        <div *ngIf="consumerForm.controls['lastName'].errors!['pattern']">
+                            Invalid last name
                         </div>
                     </div>
                 </div>
@@ -58,16 +64,22 @@
                         <div *ngIf="consumerForm.controls['email'].errors!['required']">
                             Email is required.
                         </div>
+                        <div *ngIf="consumerForm.controls['email'].errors!['pattern']">
+                            Invalid Email
+                        </div>
                     </div>
                 </div>
                 <div>
                     <label>Business Name:</label>
                     <input formControlName="businessName" id="validity" type="text" class="form-control"
-                        placeholder="Validity" />
+                        placeholder="Business Name" />
                     <div *ngIf="consumerForm.controls['businessName'].invalid && consumerForm.controls['businessName'].touched"
                         class="alert alert-danger">
                         <div *ngIf="consumerForm.controls['businessName'].errors!['required']">
                             Business Name is required.
+                        </div>
+                        <div *ngIf="consumerForm.controls['businessName'].errors!['pattern']">
+                            Invalid businessName
                         </div>
                     </div>
                 </div>
@@ -79,6 +91,9 @@
                         class="alert alert-danger">
                         <div *ngIf="consumerForm.controls['businessType'].errors!['required']">
                             Business Type is required.
+                        </div>
+                        <div *ngIf="consumerForm.controls['businessType'].errors!['pattern']">
+                            Invalid businessType
                         </div>
                     </div>
                 </div>
@@ -113,6 +128,9 @@
                         <div *ngIf="consumerForm.controls['agentName'].errors!['required']">
                             Agent Name is required.
                         </div>
+                        <div *ngIf="consumerForm.controls['agentName'].errors!['pattern']">
+                            Invalid agentName
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -146,6 +164,9 @@
                         <div *ngIf="consumerForm.controls['totalEmployees'].errors!['required']">
                             Total Employees is required.
                         </div>
+                        <div *ngIf="consumerForm.controls['totalEmployees'].errors!['pattern']">
+                            Total Employees must be number.
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -157,6 +178,7 @@
                         <div *ngIf="consumerForm.controls['businessAge'].errors!['required']">
                             Business Age is required.
                         </div>
+            
                     </div>
                 </div>
                 <div align="center">
@@ -164,6 +186,7 @@
                 </div>
             </form>
         </div>
+        <br>
         <table style="border: 0px solid black;border-collapse: collapse;">
             <div *ngIf="response!=null || errorMsg!=''">
 
