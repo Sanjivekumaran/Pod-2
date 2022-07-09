@@ -35,7 +35,8 @@ export class IssuePolicyComponent implements OnInit {
       },
       (error: any) => {
         this.hasError = true;
-        if (error.error.error != null) this.errorMsg = error.error.error;
+        if (error.error.message != null) this.errorMsg = error.error.message;
+        else if (error.error.error != null) this.errorMsg = error.error.error;
         else this.errorMsg = error.error;
         console.error(error);
       }

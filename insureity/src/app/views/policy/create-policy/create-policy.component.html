@@ -1,5 +1,5 @@
 <app-card>
-    <div class="content">
+    <div class="content" align="center">
         <div class="container center" *ngIf="response==null">
             <h2>Create Policy</h2>
             <form [formGroup]="policyForm" (ngSubmit)="onSubmit(policyForm.value)" method="post">
@@ -30,10 +30,10 @@
                     <span class="text-success">{{response}}</span>
                     <span class="text-danger">{{errorMsg}}</span>
                 </h6>
-<div class="btn-group mt-3" role="group">
-    <button type="button" class="btn btn-primary" routerLink="/home">Home</button>
-    <!-- <button type="button" class="btn btn-primary" routerLink="../">Go Back</button> -->
-</div>
+                <div class="btn-group mt-3" role="group">
+                    <button type="button" class="btn btn-primary" routerLink="/home">Home</button>
+                    <!-- <button type="button" class="btn btn-primary" routerLink="../">Go Back</button> -->
+                </div>
             </div>
         </table>
     </div>

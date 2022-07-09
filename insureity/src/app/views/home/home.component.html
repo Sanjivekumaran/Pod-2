@@ -52,9 +52,9 @@
                         <div class="form-group">
                             <div class="row mt-4">
                                 <input formControlName="consumerId2" id="consumerid" type="number"
-                                    class="inp form-control" placeholder="Enter consumer Id" />
+                                    class="inp form-control" placeholder="Enter Consumer Id" />
                                 <input formControlName="propertyId" id="propertyid" type="number"
-                                    class="inp form-control" placeholder="Enter consumer ID" />
+                                    class="inp form-control" placeholder="Enter Property Id" />
                                 <!-- <div class="" style="border-radius: 2rem;background-color: rgb(66, 66, 66);">
                                     <div class="col-sm form-outline form-white">
                                         <input formControlName="consumerId2" id="consumerid" type="number"
@@ -138,10 +138,10 @@
                             </div>
                         </div>
                     </form>
-                    <div class="alert alert-danger" role="alert" *ngIf="hasError">
+                    <div class="alert alert-danger mt-2" role="alert" *ngIf="hasError">
                         {{errorMsg}}
                     </div>
-                    <div class="alert alert-success" role="alert" *ngIf="quoteResponse!=null">
+                    <div class="alert alert-success mt-2" role="alert" *ngIf="quoteResponse!=null">
                         Quotes : {{quoteResponse}}
                     </div>
                 </div>
